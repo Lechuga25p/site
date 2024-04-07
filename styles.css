@@ -1,0 +1,84 @@
+/* Estilo base */
+body {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  /* Cabecera */
+  header {
+    background: #005792;
+    color: #ffffff;
+    padding: 10px;
+    border-bottom: #004d7a 3px solid;
+  }
+  
+  /* Navegación */
+  header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  header li {
+    padding: 0 20px;
+  }
+  
+  header #branding {
+    display: flex;
+    align-items: center;
+  }
+  
+  header #branding h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  /* Botones */
+  button {
+    background-color: #0083b0;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #005792;
+  }
+  
+  /* Sección de contenido */
+  .content-section {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Pie de página */
+  footer {
+    background: #00334e;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+  }
+  

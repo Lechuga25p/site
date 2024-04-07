@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" href="cheeems.ico">
+</head>
+<body>
+    <h1 style="font-size: xx-large; color: #063970;"><i>"Lechuga"</i></h1>
+    <textarea id="inputArea" rows="25" cols="60"></textarea><br>
+    <button onclick="extractData()">Extraer datos</button>
+    <button onclick="copyToClipboard()">Copiar al portapapeles</button>
+   <button onclick="clearTextarea()">Borrar</button>
+   <!--<button onclick="pasteFromClipboard(event)">BOTON PARA PEGAR</button>-->
+   <button onclick="pasteExtractCopyClear()">TODO</button>
+    <p id="outputArea"></p>
+    <p id="copyMessage" style="color: green; font-weight: bold;"></p>
+    <script src="script.js"></script>
+</body>
+<b><div style="font-size: 18px; color: #063970;"><i>'Para mostrar la fecha copiar desde donde está'</i></div></b>
+<br>
+<b><div style="font-size: 10px; color: #063970;"><i>'Compatible con Bh, QS6, Examen general de orina, Tiempos, Electrolitos (Ca-Po-Mg), PFH, Gasometría, Enzimas cardiacas, Perfil tiroideo, Enzimas pancreaticas, Sang oculta en heces, PCR, VSG, DIMERO D, PRL, PSA, FR, ASO, Algunos marcadores tumorales..'</i></div></b>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+<input type="text" id="buscador" onkeyup="buscar()" placeholder="">
+<div id="resultado"></div>    
+
+<script>
+    var palabras = ["HORACIO.HERNANDEZ HORACIO.45 [CIRU]",
+"FRANCISCO.CARRADA CARRADA36 [CIRU]",
+"AGUILAR.MOTA 3105SAMiCR [CIRU]",
+"BENITO.RAMON BENITORG1234 [CIRU]",
+"CARLOS.AVALOS AVALOS59 [UROLOGIA]",
+"CARLOS.MADRIGAL DRLEYVA62 [CIRU]",
+"DARLINGGL GONZALEZ4910",
+"DAVID.RIOS DARIRO86",
+"IGNACIO.PAVON IGNACIOPR150 [CIRU]",
+"JESUS.MARTINEZ JESUSZJ58",
+"JAVIER.FLORES JAVIERFR479",
+"JOEL.CRUZG JOELCRUZ23 (R.IVAN) [CIRU]",
+"JORGE.MANZUR JORGERJ56",
+"ROBERTO.MANZANO ROBERTO17 [COLOPROCTO]",
+"RODRIGO.REPETTO RODRIGO76 [CIRU]",
+"TILO.AGUILAR AGUILAR59",
+"JUAN.ROJAS JUANSJ45 ROJAS LORANCA [CARDIOTORAX]",
+"CLAUDIAS.TABOADA CLAUDIASTS25",
+//URGENCIAS
+"JLUISBG.GUTIERREZ Jluisbg2023 (Dr.Baltazar)",
+"MARCIONILADG MARCIONILADG210 [MI]",
+"MARTINBG MARTIN671 (Dr.Burguet)",
+"JOSE.FRANCISCO JOSERA671 (Dr.Arroyo)",
+"DAVIS.ANDERSON DAVISGL850",
+"LUZ.LUCIANO BALCAZAR69",
+"JULIO.MENDOZA JULIOMH2023",
+"KRYSTELL.CASTRO Krystell2023",
+"ROCIO.NARVAEZ Dannamn03 [URGENCIAS]",
+"FREDDY_MARIN abcdef12 [URGENCIAS]",
+"MANUEL.PEREZ MANUELPL663 [URGENCIAS]",
+"ARMANDO.FRIAS ARMANDOFO715 [URGENCIAS]",
+"MARIA.REYES MARIA874 (Dra.Paz)",
+"MARCO.RUIZ MARCORV339",
+"MARIA.CERINOCEMI ISABEL12",
+"MIGUEL.GONZALEZ MIGUEL4510 (DR.Villegas) [URGENCIAS]",
+"NESTOR.PEREZ NESTORPA645",
+"ADRIAN.NAVARRETE ADRIANNC258",
+"AGUSTIN.PEREZ AGUSTINPG384",
+"ERNESTO.RIVERA ERNESTORR407",
+"ALFREDO.HERNANDEZ ALFREDOZA79",
+"ANTONIO.CERINO antonio2022",
+"FERNANDO.GARCIA GARCIA12",
+"EZEQUIEL.LUCIANO ezequiel2022",
+"HERNAN HERNAN0040",
+"JUAN.LOPEZ 2802 (Dr.JJ) [URGENCIAS]",
+"JUSTINO.CADENA JUSTINOCO654",
+"LUIS.GOMEZ Alfredo89",
+"ANTONIO.PEREZ ANTONIOPJ297",
+"BEATRIZ.ADRANA ADRIANA1130 (Dra.Velasco)",
+"CARLOS.HERNANDEZ CARLOS469",
+"MANUEL.DIAZ MANUELDL765",
+"MANUEL.SANTIAGO Manuel2023",
+//MI
+"MARINA.BRETON MARINANM64",
+"BURGOS.ALVAREZ BURGOS485 [MI]",
+"ROCIO.ROMO 161616 Dra. Romo [MI]",
+"JESUS.CHABLED CHABLE99 (R.Chable) [MI]",
+"MAGDIEL.OROZCO MAGDIEL0409 [MI]",
+"DANIEL.SALVADOR DANIEL01 [MI]",
+"SERGIO.AMORES sergioss66 [MI]",
+"JAGOPE 690626 [CARDIO]",
+"BLANCA.BROCAG BLANCA0104 (DRA.BLANCA ESTELA BROCA) [CARDIO]",
+"MARCO.RUIZ MARCORV339 [NEFRO]",
+"TORRES.ESTEBAN TORRES2188 [NEFRO]",
+"PEDROZO.E PEDROZO68 (DR. OSMELL) [NEFRO]",
+"ROSULA.MONTEJO ROSULAMD738 [MI]",
+"SERGIO.CASTRO SERGIOLZ66 (DR.CASTRO LAZO) [NEUMO]",
+//TRAUMA
+"IVES.PEDRO IVESMU2024 [TRAUMA]",
+"MANUEL.FERNANDEZ manuel610101 [TRAUMA]",
+"PAULO.LOPEZ LOMUPAULO [TRAUMA]",
+"ABRAHAM.RAMIREZ ABRAHAM78 [TRAUMA]",
+"JORGE.MOO JORGEOJ53 (DR.MOO KIM) [TRAUMA]",
+"JORGE.SANCHEZ JORGEZJ57 [TRAUMA]",
+"JUAN.LOPEZ JUANZJ45 (DR.LOPEZ ROMERO CIRUGIA DE COLUMNA) [TRAUMA]",
+"RICARDEZ RAFAEL81 [TRAUMA]",
+"JOSE.GOMEZ JOSE J46 // (JOSE LUIS GOMEZ GARCIA) [TRAUMA]",
+//MEDICOS APOYO
+"UBALDO.DIAZ Ubaldocr2023",
+"JAVIER.FLORES JAVIERFR479",
+"SALVADORHH SALVADORHH12",
+"MERCEDES.PEREGRINO MERCEDES1998",
+"JONATHAN.DIAZ JONATHAN23",
+"ANA.BELEN 1234",
+"LUIS.MENDOZA LUIS.MENDOZA1989",
+"DANIELA.CONDE Danielaca2023",
+"KAREN.REYES TERESA68 (DRA.JEMIMA)",
+"MARIA.ALICIA MARIARR321 (Dra.Alicia)",
+//"FANNY.PEREYRA fannyp2022",
+//PEDIAPLAYA
+"GCHAVEZ GCHAVEZ561 (Dra.Chávez) [PEDIA]",
+"JUAN.HERNANDEZ juanhm626 (Dr.Marroquín) [PEDIA]",
+"JOSE.UITZIL UITZIL983 (Dr.Uitzil) [PEDIA]",
+"CANDELARIO.ZAVALA CANDELARIO1529 (Dr.Zavala) [PEDIA]",
+"MARCELO.SOTOMAYOR MARCELORM79 (Dr.Sotomayor) [PEDIA]",
+"MARIA.JOSE COYOC (Dra.Coyoc) [PEDIA]",
+"ROSA.MARTINEZ MARBAR (Dra.Martínez) [PEDIA]",
+"DANIEL.AGUILAR DANIELAR670 (Dr.Daniel Aguilar) [PEDIA]",
+"FELIPE.PAIS FELIPEPD485 (Dr.Pais) [PEDIA]",
+"MARIBEL.MEZO MARIBELMM624 (Dra.Maribel) [PEDIA]",
+"FAUSTINO.MORALES faustino91 (Dr.Faustino) [PEDIA]",
+"FREDERIC.VELASCO LIZCHAN12 (Dr.Frederic) [PEDIA]",
+//GINECOLOGIA
+"EZEQUIAS.SOBERANOCM nery25eze35 (DR. SOBERANO) [GYO]",
+"JOSE.AQUINO JOSEOJ56 [GYO]",
+"JOSESP.SANCHEZ Josesp2023 (DR. PACHO) [GYO]",
+"ROBERTO.ROMAN ROBERTORA661 [GYO]",
+"ALEJANDRA.LANDERO Alejandra2023 [GYO]",
+"PAOLIS19 PAOLIS19 (DRA. PAOLA) [GYO]",
+"AYMARA.CASTRO AYMARACF479",
+"PABLO.FROYLAN CULISIMO [GYO]",
+"GERARDO.GOMEZ GERARDOGH174 [GYO]",
+"ANTONIO.GUZMAN ANTONIOGD611 [GYO]",
+"JOSE.SASTRE JOSEEJ046 [GYO]",
+"MARIA.RUBI QUINTANILLA [GYO]",
+"SALOMON.SANTANA SANTANA60 [GYO]",
+"RICARDO.PERALTA RIPEQU85 [GYO]",                
+"ISRAEL.CIFUENTES ISRAELSI69 [GYO]",
+"DRESCAYOLA.19 enrique88 [GYO]",
+"JOSE.ANTONIO JOSEAD874",
+"RAULHS.SANCHEZ Raulhs2023 [GYO]",
+"MICHE.BRACA BRACAGIL [GYO]",
+"NELSON.MORALES Nelson2023 (DR.ALAN) [GYO]",
+//OTROS
+"AGUILAR.MIGUEL AGUIHE84 (Dr.MIGUEL ANGEL AGUILAR HERNANDEZ)",
+"ALBERTOCM ALBERTO169 (Dr.ALBERTO CONTRERAS MENDEZ)",
+"ALEXCOOP Vipers00 (Dr.ARTURO ALEJANDRO JIMENEZ COOP)",
+"AMANDA.VARGAS AMANDAVJ982 (AMANDA VARGAS JIMENEZ)",
+"ANTONIO.GUZMAN ANTONIOGD611 (ANTONIO GUZMAN DOMINGUEZ)",
+"ARTURO.LOPEZ ARTUROZA71 (Dr.ARTURO LOPEZ SANTIAGO)",
+"FELIPE SOLIZF86 (FELIPE DE JESUS AVILA SOLIZ)",
+"FERNANDO.ALVAREZ  ANESTESIA (FERNANDO ARTURO ALVAREZ HERNANDEZ)",
+"GABRIELA.ARIAS GABRIELAAR715 (SANDRA GABRIELA ARIAS RICARDEZ)",
+"GABRIELA.GUZMAN COMETIN07 (GABRIELA GUZMAN MOLINA)",
+"GONZA.VANIAC DRAVGC88 (VANIA GONZALEZ CORREA)",
+"GONZALO.MENDOZA GONZALOAG77 (GONZALO MENDOZA SANCHEZ)",
+"ISABEL.RAMON ISABEL27 (ISABEL CRISTINA RAMON PEREZ)",
+"IVAN.CERINO IVAN727 (IVAN ANTONIO CERINO HERRERA)",
+"IVONNE.RINCON IVONNE847 (IVONNE DEL CARMEN RINCON ARANO)",
+"JOSE.AQUINO JOSEOJ56 (JOSE MANUEL AQUINO HERNANDEZ)",
+"JOSE.CADENA JOSECADE05 (JOSE ANTONIO CADENA GARCIA)",
+"JOSE.DAVID MUÑOZ (JOSE DAVID MUÑOZ ROMERO)",
+"JOSEJH.HERNANDEZ josejh2022 (JOSE JESUS DE DIOS HERNANDEZ)",
+"JUAN.ALFARO ALFARO5656 (JUAN LUIS ALFARO RUIZ)",
+"JULIO.CESAR JULIOCVE440 (JULIO CESAR VAZQUEZ ESPINOSA)",
+"LUIS.ALMEIDA ARTURO19 (LUIS ARTURO ALMEIDA MAYORGA)",
+"MARCOA.SERRANO MARCOASR999 (MARCO ANTONIO SERRANO RIVERA)",
+"MARTHA.AGUILAR MARTHAAM916 (MARTHA ELENA AGUILAR MOCTEZUMA)",
+"MAURICIO.MUÑOZ MAURICIO.MUÑOZ (MAURICIO MUÑOZ CAMPOS)",
+"MIGUEL.ARMANDO MIGUELFM619 (MIGUEL ARMANDO FALCONI MARTINEZ)",
+"MIGUEL.DOMINGUEZ MIGUELDH551 (MIGUEL ANGEL DOMINGUEZ HERRERA)",
+"OCTAVIANO.VELAZCO OCTAVIANOVR415 (OCTAVIANO VELAZCO RODRIGUEZ)",
+"OMAR.TEJERO OMARTJ298 (OMAR TEJERO JIMENEZ)",
+"RAFAEL.SANCHEZ TRABAJO12 (RAFAEL SANCHEZ MAY)",
+"RONALD.ARLEY RONALDCA526 (RONALD ARLEY CEFERINO ARIAS)",
+"ROSA.MARTINEZ MARBAR (ROSA MARTHA MARTINEZ DE ESCOBAR HERRERA)",
+"RUBEN.VILLAREAL RUBENVG6564 (RUBEN VILLAREAL GOVEA)",
+"RUTH.GUATEMALA RUTHGN144 (RUTH GUATEMALA NIÑO)"
+
+
+];
+
+    function buscar() {
+        var input = document.getElementById('buscador');
+        var filtro = input.value.toLowerCase();
+        var resultado = document.getElementById('resultado');
+        resultado.innerHTML = '';
+
+        if (filtro.trim() !== '') {
+            for(i = 0; i < palabras.length; i++) {
+                if (palabras[i].toLowerCase().includes(filtro)) {
+                    var palabrasSeparadas = palabras[i].split(' ');
+                    var p = document.createElement('p');
+                    for (var j = 0; j < palabrasSeparadas.length; j++) {
+                        var span = document.createElement('span');
+                        span.textContent = palabrasSeparadas[j] + ' ';
+                        span.onclick = function() {
+                            navigator.clipboard.writeText(this.textContent.trim());
+                        };
+                        p.appendChild(span);
+                    }
+                    resultado.appendChild(p);
+                }
+            }
+        }
+    }
+</script>
+<style>
+    #resultado {
+      margin-top: 15px;
+  }
+  span {
+      cursor: pointer;
+  }
+  span:hover::after {
+      content: ' (copiar)';
+      color: blue;
+  }
+  </style>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<b><span style="font-size: xx-small; color: #f4f4f4;"><i> 
+    
+
+</i></span></b>
+</html>
