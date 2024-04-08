@@ -216,7 +216,7 @@ function extractData() {
 function copyToClipboard() {
     var outputText = document.getElementById('outputArea').innerText;
     navigator.clipboard.writeText(outputText).then(() => {
-        document.getElementById('copyMessage').innerText = "Resultado copiado al portapapeles";
+        document.getElementById('copyMessage').innerText = "Resultado copiado al portapapeles📝";
     }).catch(err => {
         console.error('Error al copiar al portapapeles:', err);
     });
@@ -236,7 +236,7 @@ function pasteFromClipboard() {
     navigator.clipboard.readText().then(text => {
         document.getElementById('inputArea').value = text;
     }).catch(err => {
-        console.error('-----Error al pegar desde el portapapeles-----:', err);
+        console.error('Error al pegar desde el portapapeles:', err);
     });
     
     return false; // Evitar comportamiento predeterminado

@@ -1,11 +1,54 @@
 /* Estilo base */
-body {
-    text-align: center;
+  body {
+   text-align: center;
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     margin: 0;
     padding: 0;
+  }
+  /* Area de texto */
+  #inputArea {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #b2dff610;
+    color: black;
+    padding: 1em;
+    border-radius: 10px;
+    outline: none;
+    border: 2px #0b427d6f solid;
+    position: relative;
+    
+  }
+  /* Cambio de puntero en area de texto */
+  #inputArea:hover {
+    cursor: pointer;
+  }
+  /* Texto del area de texto */
+  ::placeholder {
+    color: #6360604d;
+    opacity: 1; 
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+    /* Buscador de claves */
+  #buscador {
+    font-family: 'Comic Sans MS', sans-serif;
+    text-align: left;
+    background-color: #f4f4f4;
+    color: black;
+    border: 2px #f4f4f4 solid;
+    padding: 1em;
+
+  }
+  #resultado{
+    text-align: left;
+    font-family: 'Comic Sans MS', sans-serif;
+    color: #b2dff6b1;
+
   }
   
   /* Contenedor principal */
@@ -76,9 +119,9 @@ body {
   
   /* Pie de página */
   footer {
-    background: #00334e;
-    color: #ffffff;
-    text-align: center;
+    background: #f4f4f4;
+    color: black;
+    text-align: left;
     padding: 10px 0;
   }
   
