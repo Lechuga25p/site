@@ -9,6 +9,7 @@ function extractData() {
         'LEUCOCITOS': 'LEU',
         'NEUTROFILOS SEGMENTADOS %': 'NEU SEG',
         'PLAQUETAS': 'PLAQ',
+
         //QS
         'CREATININA SERICA': 'CREA',
         'UREA': 'UREA',
@@ -42,7 +43,7 @@ function extractData() {
         //Gaso
         'pH': 'pH',
         'PCO2': 'PCO2',
-        'Lactato': 'Lac',
+        //'Lactato': 'Lac',
         'HC03 actual': 'HC03',
         '(EBA)': 'EBA',
         '(SAT)': 'SATO2',
@@ -95,7 +96,7 @@ function extractData() {
         'GASOMETRIA ARTERIAL': 'GASO',
         'CITOMETRIA HEMATICA': 'BH',
         'ELECTROLITOS SERICOS': 'ELES',
-        'QUIMICA CLINICA': 'QS'
+        //'QUIMICA CLINICA': 'QS'
 
     };
 
