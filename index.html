@@ -18,6 +18,42 @@
     <p id="copyMessage" style="color: #065470; font-size: 20px; font-weight: bold;"></p>
     <script src="script.js"></script>
 
+
+    <!-- GUARDIOMETRO -->
+<body>
+    <h1 id="mensaje"></h1>
+
+    <script>
+        // Definimos las guardias en un array
+        var guardias = ['A', 'B', 'C', 'D'];
+
+        // Obtenemos la fecha actual
+        var fecha = new Date();
+
+        // Obtenemos el número de día desde el comienzo del año
+        var inicio = new Date(fecha.getFullYear(), 0, 0);
+        var diferencia = fecha - inicio;
+        var unDia = 1000 * 60 * 60 * 24;
+        var dia = Math.floor(diferencia / unDia);
+
+        // Calculamos la guardia del día
+        var guardiaDelDia = guardias[dia % guardias.length];
+
+        // Calculamos cuántas guardias faltan hasta el 30 de junio
+        var fin = new Date(fecha.getFullYear(), 5, 30);
+        var diasRestantes = Math.ceil((fin - fecha) / unDia);
+        var guardiasRestantes = Math.floor(diasRestantes / guardias.length);
+
+        // Calculamos cuántas guardias faltan para la guardia del día
+        var faltantesParaEstaGuardia = guardiasRestantes + (guardias.indexOf(guardiaDelDia) < diasRestantes % guardias.length ? 1 : 0);
+
+        // Mostramos la guardia del día y cuántas guardias faltan en la página
+        document.getElementById('mensaje').textContent = 'Guardia ' + guardiaDelDia + ': ' + faltantesParaEstaGuardia + ' restantes';
+    </script>
+</body>
+</html>
+
+
     <!-- MEDICAMENTOS 
     <textarea id="medicamentos" rows="5" cols="20"></textarea> <br>-->
 
@@ -264,15 +300,15 @@
 "CARLOS.AVALOS AVALOS59             [UROLOGIA]",
 "CARLOS.MADRIGAL DRLEYVA62          [CIRU]",
 "DARLINGGL GONZALEZ4910",
-"DAVID.RIOS DARIRO86",
+"DAVID.RIOS DARIRO86                [CIRU]",
 "IGNACIO.PAVON IGNACIOPR150         [CIRU]",
 "JESUS.MARTINEZ JESUSZJ58",
 "JAVIER.FLORES JAVIERFR479",
 "JOEL.CRUZG JOELCRUZ23              (R.IVAN) [CIRU]",
-"JORGE.MANZUR JORGERJ56",
+"JORGE.MANZUR JORGERJ56             [COLOPROCTO]",
 "ROBERTO.MANZANO ROBERTO17          [COLOPROCTO]",
 "RODRIGO.REPETTO RODRIGO76          [CIRU]",
-"TILO.AGUILAR AGUILAR59",
+"TILO.AGUILAR AGUILAR59             [CIRU]",
 "JUAN.ROJAS JUANSJ45                (DR. ROJAS LORANCA) [CARDIOTORAX]",
 "CLAUDIAS.TABOADA CLAUDIASTS25",
 //URGENCIAS
@@ -311,6 +347,7 @@
 "MANUEL.SANTIAGO Manuel2023",
 //MI
 "MARINA.BRETON MARINANM64",
+"JOSE.VALENZUELA Josemaria06 [MI]",
 "BURGOS.ALVAREZ BURGOS485           [MI]",
 "ROCIO.ROMO 161616 Dra. Romo        [MI]",
 "JESUS.CHABLED CHABLE99             (R.Chable) [MI]",
@@ -333,7 +370,8 @@
 "JORGE.SANCHEZ JORGEZJ57            [TRAUMA]",
 "JUAN.LOPEZ JUANZJ45                (DR.LOPEZ ROMERO CIRUGIA DE COLUMNA) [TRAUMA]",
 "RICARDEZ RAFAEL81                  [TRAUMA]",
-"JOSE.GOMEZ JOSE J46                (JOSE LUIS GOMEZ GARCIA) [TRAUMA]",
+"JOSE.GOMEZ JOSE J46                (Espacio en la contraseña) [TRAUMA]",
+"RODOLFO.AGUIRRE ACAPULCO60 (DR.SUSANO) [TRAUMA]" ,
 //MEDICOS APOYO
 "UBALDO.DIAZ Ubaldocr2023",
 "JAVIER.FLORES JAVIERFR479",
@@ -346,6 +384,9 @@
 "KAREN.REYES TERESA68               (DRA.JEMIMA)",
 "MARIA.ALICIA MARIARR321            (Dra.Alicia)",
 "ANDRES.PALOMEQUE Andrespz2024",
+"ROSARIO.MENA ROSARIOMJ22",
+"CARLOS.PALMA CARLOS11",
+"JESUSM.HERNANDEZ jesusm2022",
 
 
 //"FANNY.PEREYRA fannyp2022",
@@ -362,6 +403,7 @@
 "MARIBEL.MEZO MARIBELMM624          (Dra.Maribel) [PEDIA]",
 "FAUSTINO.MORALES faustino91        (Dr.Faustino) [PEDIA]",
 "FREDERIC.VELASCO LIZCHAN12         (Dr.Frederic) [PEDIA]",
+"JPABLO.MONTALVO jpablo2023         (Dr.Montalvo) [PEDIA]",
 //GINECOLOGIA
 "EZEQUIAS.SOBERANOCM nery25eze35    (DR. SOBERANO) [GYO]",
 "JOSE.AQUINO JOSEOJ56               [GYO]",

@@ -124,4 +124,10 @@
     text-align: left;
     padding: 10px 0;
   }
-  
+  #mensaje {
+    background: #f4f4f4;
+    color: #005792;
+    text-align: center;
+    padding: 10px 0;
+  }
+
