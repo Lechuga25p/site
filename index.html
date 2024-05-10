@@ -14,6 +14,7 @@
    <button onclick="pasteFromClipboard(event)">BOTON PARA PEGAR</button>-->
    <button onclick="pasteExtractCopyClear()">Extraer datos⚙️</button>
    <button onclick="extraerMedicamentos()">--🛠️--</button>
+   <ul id="listaMedicamentos"></ul>
     <p id="outputArea"></p>
     <p id="copyMessage" style="color: #065470; font-size: 20px; font-weight: bold;"></p>
     <script src="script.js"></script>
@@ -52,173 +53,217 @@
     </script>
 </body>
 </html>
+  <!-- MEDICAMENTOS  -->
 
 
-    <!-- MEDICAMENTOS 
-    <textarea id="medicamentos" rows="5" cols="20"></textarea> <br>-->
+  <script>
+      function extraerMedicamentos() {
+          var texto = document.getElementById('inputArea').value;
+          var medicamentos = [
+           //1,29 
+         'ACIDO ACETILSALICICO',
+'BUPRENORFINA',
+'CAPSAICINA',
+'CLONIXINATO DE LISINA',
+'DEXMEDETOMIDINA',
+'ETOFENAMATO',
+'IBUPROFENO',
+'KETOROLACO',
+'METAMIZOL',
+'MORFINA',
+'NALBUFINA',
+'OXICODONA',
+'PARACETAMOL',
+'TRAMADOL',
+'TRAMADOL-PARACETAMOL',
+'CELECOXIB',
+'DICLOFENACO',
+'ETORICOXIB',
+'INDOMETACINA',
+'MELOXICAM',
+'NAPROXENO',
+'ORFENADRINA',
+'PIROXICAM',
+//6 ENDOCRINO
+'DAPAGLIFLOZINA',
+'DEFLAZACORT',
+'DENOSUMAB',
+'DESMOPRESINA',
+'EFEDRINA',
+'FENOFIBRATO',
+'GLIBENCLAMIDA',
+'GLIMEPRIRIDA',
+'INSULINA ASPARTICA',
+'INSULINA DETEMIR',
+'INSULINA GLARGINA',
+'INSULINA HUMANA ACCIÓN RÁPIDA',
+'INSULINA HUMANA ACCIÓN INTERMEDIA',
+'INSULINA LISPRO',
+'LEVOTIROXINA',
+'METFORMINA',
+'METILPREDNISOLONA',
+'PRAVASTATINA',
+'PREDNISOLONA',
+'PREDNISONA',
+'ROSUVASTATINA',
+'SAXAGLIPTINA',
+'SOMATROPINA',
+'TESTOSTERONA',
+'TIAMAZOL',
+'VIDALGLIPTINA',
+//7 infecciosas parasitarias
+'ABACAVIR',
+'ACICLOVIR',
+'ALBENDAZOL'
+,'AMFOTERICINA B'
+,'AMIKACINA'
+,'AMOXICILINA-ACIDO CLAVULANICO'
+,'AMOXICILINA'
+,'AMPICILINA'
+,'AZITROMICINA'
+,'BENCILPENICILINA BENZATINICA'
+,'BENCILPENICILINA PROCAINICA'
+,'BENCILPENICILINA SODICA CRISTALINA'
+,'BENZATINA' 
+,'BICTEGRAVIR/EMTRICITABINA/TENOFOVIR'
+,'CASPOFUNGINA'
+,'CEFALEXINA'
+,'CEFEPIMA'
+,'CEFOTAXIMA'
+,'CEFTAZIMIDA'
+,'CEFTRIAXONA'
+,'CEFUROXIMA'
+,'CIPROFLOXACINO'
+,'CLARITROMICINA'
+,'CLINDAMICINA'
+,'CLORANFENICOL'
+,'DARUNAVIR'
+,'DARUNAVIR/COBICISTAT'
+,'DICLOXACILINA'
+,'DOLUTEGRAVIR'
+,'DOLUTEGRAVIR/ABACAVIR/LAMIVUDINA'
+,'DORAVIRINA'
+,'DOXICICLINA'
+,'EFAVIRENZ'
+,'ELVITEGRAVIR/COBICISTA/EMTRICITABINA/TENOFOVIR'
+,'ALAFENAMIDA'
+,'EMTRICITABINA-TENOFOVIR'
+,'DISOPROXIL FUMARATO'
+,'ERITROMICINA'
+,'ERTAPENEM'
+,'ESTREPTOMICINA'
+,'ETRAVIRINA'
+,'FLUCONAZOL'
+,'FOSFOMICINA'
+,'GANCICLOVIR'
+,'GENTAMICINA'
+,'HIDROXICLOROQUINA'
+,'ISONIAZIDA'
+,'ISONIAZIDA Y RIFAMPICINA'
+,'ISONIAZIDA, RIFAMPICINA, PIRAZINAMIDA, ETAMBUTOL'
+,'ITRACONAZOL'
+,'IVERMECTINA'
+,'KETOCONAZOL'
+,'LAMIVUDINA'
+,'LEVOFLOXACINO'
+,'LINAGLIPTINA'
+,'LINEZOLID'
+,'LOPINAVIR-RITONAVIR'
+,'MEBENDAZOL'
+,'MEROPENEM'
+,'METRONIDAZOL'
+,'MOXIFLOXACINO'
+,'NEVIRAPINA'
+,'NISTATINA'
+,'NITROFURANTOINA'
+,'OSELTAMIVIR'
+,'PIPERACILINA-TAZOBACTAM'
+,'QUINFAMIDA'
+,'RALTEGRAVIR'
+,'RIFAMPICINA'
+,'RIFAXIMINA'
+,'RITONAVIR'
+,'SOFOSBUVIR-VELPATASVIR'
+,'SULFAMETOXAZOL-TRIMETROPINA'
+,'TALIDOMIDA'
+,'TEICOPLANINA'
+,'TENOFOVIR DISOPROXIL'
+,'TERBINAFINA'
+,'TRIMETROPINA-SULFAMETOXAZOL'
+,'VALGANCICLOVIR'
+,'VANCOMICINA'
+,'ZIDOVUDINA'
+,'ACIDO URSODEOXICOLICO'
+,'BUTILHIOSCINA-METAMIZOL'
+,'BUTILHIOSCINA'
+,'CISAPRIDA'
+,'DICICLOVERINA'
+,'ESOMEPRAZOL'
+,'FOSFATO Y CITRATO DE SODIO'
+,'INFLIXIMAB'
+,'LACTULOSA'
+,'LOPERAMIDA'
+,'MESALAZINA'
+,'METOCLOPRAMIDA'
+,'OCTREOTIDA'
+,'OMEPRAZOL'
+,'PANCREATINA'
+,'PINAVERIO'
+,'PIPERIDOLATO'
+,'PLANTAGO PSYLLIUM'
+,'POLIETILENGLICOL'
+,'COLESTIRAMINA'
+,'SENOSIDOS A-B'
+,'SOFUSBUVIR'
+,'SUCRALFATO'
+,'SULFASALAZINA'
+,'TERLIPRESINA'
+,'TRIMEBUTINA'
+];
+          var lista = document.getElementById('listaMedicamentos');
+          lista.innerHTML = '';
+          for (var i = 0; i < medicamentos.length; i++) {
+              var index = texto.indexOf(medicamentos[i]);
+              if (index !== -1) {
+                  var substring = texto.substring(index);
+                  var match = substring.match(/\d+/);
+                  var tomarIndex = substring.indexOf('Tomar/Aplicar');
+                  if (tomarIndex !== -1) {
+                      var tomarSubstring = substring.substring(tomarIndex);
+                      var tomarMatch = tomarSubstring.match(/\d+/);
+                      if (match && tomarMatch) {
+                          var multiplicacion = match[0] * tomarMatch[0];
+                          var li = document.createElement('li');
+                          var unidad = substring.match(/MG|G|UI/);
+                          var tipo = substring.match(/INYECTABLE|TABLETAS|COMPRIMIDOS|GRAGEAS|CAPSULA/);
+                          var tipoTexto = '';
+                          if (tipo) {
+                              tipoTexto = (tipo[0] === 'INYECTABLE') ? ' IV' : ' VO';
+                          }
+                          var horas = tomarSubstring.match(/cada (\d+) HORAS/);
+                          var horasTexto = '';
+                          if (horas) {
+                              horasTexto = ' CADA ' + horas[1] + ' HORAS';
+                          }
+                          if (unidad) {
+                              li.textContent = medicamentos[i] + ' ' + multiplicacion + ' ' + unidad[0] + tipoTexto + horasTexto;
+                          } else {
+                              li.textContent = medicamentos[i] + ' ' + multiplicacion + tipoTexto + horasTexto;
+                          }
+                          // Verifica si el medicamento tiene la palabra "Alta" después de los detalles del medicamento
+                          var altaIndex = substring.indexOf('Fecha alta:');
+                          var nextMedIndex = (i < medicamentos.length - 1) ? substring.indexOf(medicamentos[i + 1]) : -1;
+                          if (altaIndex !== -1 && (nextMedIndex === -1 || altaIndex < nextMedIndex)) {
+                              li.textContent += '';
+                              lista.appendChild(li);
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  </script>
 
-    <ul id="listaMedicamentos"></ul>
-
-    <script>
-        function extraerMedicamentos() {
-            var texto = document.getElementById('inputArea').value;
-            var medicamentos = texto.split(/(?=ACIDO ACETILSALICILICO TABLETAS. CADA TABLETA CONTIENE: ACIDO ACETILSALICILICO 100 MG. CAJA CON 30 TABLETAS|ACIDO URSODESOXICOLICO CAPSULA, 250 MG, con 50|ALPRAZOLAM TABLETA CADA TABLETA CONTIENE: ALPRAZOLAM 0.25 MG ENVASE CON 30 TABLETAS|AMLODIPINO TABLETA O CAPSULA, 5 MG, con 30|BEZAFIBRATO TABLETAS, 200 MG, con 30|BUPRENORFINA SOLUCION INYECTABLE, 0.3\/1 MG\/ML, con 6|BUTILHIOSCINA SOLUCION INYECTABLE, 20\/1 MG\/ML, con 3|BUTILHIOSCINA GRAGEA O TABLETA|CEFTRIAXONA SOLUCION INYECTABLE, 1\/10 GR\/ML, con 1|CEFTAZIDIMA SOLUCION INYECTABLE, 1\/3 GR\/ML, con 1|CITICOLINA SOLUCION INYECTABLE, 1 GR, con 5|CLINDAMICINA SOLUCION INYECTABLE, 300\/2 MG\/ML, con 1|CLOROPIRAMINA TABLETAS O GRAGEAS, 25 MG, con 20|CLOPIDOGREL TABLETA DE 75 MG. ENVASE CON 28 TABLETAS|DEXAMETASONA SOLUCION INYECTABLE, 8\/2 MG\/ML, con 1|DICLOFENACO SOLUCION INYECTABLE, 75\/3 MG\/ML, con 2|DICLOFENACO CAPSULA O GRAGEA|DIFENHIDRAMINA SOLUCION INYECTABLE, 100\/10 MG\/ML, con 1|DIFENIDOL SOLUCION INYECTABLE, 40\/2 MG\/ML, con 2|DIFENIDOL TABLETA|DIGOXINA TABLETAS, 0.25 MG, con 20|ENOXAPARINA SOLUCION INYECTABLE, 40\/0.4 MG\/ML, con 2|ENOXAPARINA SOLUCION INYECTABLE, 60\/0.6 MG\/ML, con 2|ESPIRONOLACTONA TABLETAS, 25 MG, con 30|FENITOINA SOLUCION INYECTABLE, 250\/5 MG\/ML, con 1|FLUCONAZOL SOLUCION INYECTABLE, 100\/50 MG\/ML, con 1|FLUCONAZOL CAPSULA O TABLETA|FUROSEMIDA SOLUCION INYECTABLE, 20\/2 MG\/ML, con 5|GABAPENTINA CAPSULA, 300 MG, con 15|HIDROXIZINA TABLETA O GRAGEA, 10 MG, con 30|HIPROMELOSA, SOLUCION OFTALMICA AL 0.5%, CADA ML CONTIENE 5 MG, ENVASE CON GOTERO INTEGRAL CON 15 ML|INSULINA GLARGINA SOLUCION INYECTABLE, 100\/1 UI\/ML, con 1000|IPRATROPIO SOLUCION NEBULIZADOR, 0.25\/1 MG\/ML, con 20|ISOSORBIDA TABLETAS, 10 MG, con 20|LEVOFLOXACINO SOLUCION INYECTABLE, 500\/100 MG\/ML, con 1|LOPERAMIDA COMPRIMIDOS, GRAGEAS O TABLETAS, 2 MG, con 12|MEROPENEM SOLUCION INYECTABLE, 1 GR, con 1|METAMIZOL SODICO SOLUCION INYECTABLE, 1\/2 GR\/ML, con 3|METFORMINA TABLETAS, 850 MG, con 30|METOCLOPRAMIDA SOLUCION INYECTABLE, 10\/2 MG\/ML, con 6|METOCLOPRAMIDA TABLETAS, 10 MG, con 20|METOPROLOL TABLETAS, 100 MG, con 20|NIFEDIPINO COMPRIMIDOS L.P., 30 MG, con 30|NISTATINA TABLETAS VAGINALES, 100000 UI, con 12|ONDANSETRON SOLUCION INYECTABLE, 8\/4 MG\/ML, con 3|OMEPRAZOL SOLUCION INYECTABLE, 40\/10 MG\/ML, con 1|PREGABALINA CAPSULA, 75 MG, con 28|PRAVASTATINA TABLETAS, 10 MG, con 30|RESINA DE COLESTIRAMINA SOBRES, 4 GR, con 50|RIFAXIMINA TABLETAS, 200 MG, con 28|ROSUVASTATINA TABLETAS, 10 MG, con 30|SENOSIDOS A-B TABLETAS, 8.6 MG, con 20|SUCRALFATO TABLETAS, 1 GR, con 40|TELMISARTAN TABLETAS, 40 MG, con 30|VALSARTAN COMPRIMIDOS, 80 MG, con 30| VANCOMICINA SOLUCION INYECTABLE, 500 MG, con 1|CEFTRIAXONA SOLUCION INYECTABLE, 1\/10|AMIKACINA SOLUCION INYECTABLE, 500\/2|FITOMENADIONA|OMEPRAZOL SOLUCION INYECTABLE, 40\/10|METRONIDAZOL SOLUCION INYECTABLE, 500\/100|METOCLOPRAMIDA SOLUCION INYECTABLE, 10\/2|FLUOXETINA TABLETA O CAPSULA, 20|TRAMADOL SOLUCION INYECTABLE, 100\/2|KETOROLACO SOLUCION INYECTABLE, 30\/1|PARACETAMOL SOLUCION INYECTABLE 1 G \/ 100|TELMISARTAN - HIDROCLOROTIAZIDA TABLETAS, 80)/g);
-            var listaMedicamentos = document.getElementById('listaMedicamentos');
-            listaMedicamentos.innerHTML = '';
-            for (var i = 0; i < medicamentos.length; i++) {
-                var medicamento = medicamentos[i].match(/(ACIDO ACETILSALICILICO TABLETAS. CADA TABLETA CONTIENE: ACIDO ACETILSALICILICO 100 MG. CAJA CON 30 TABLETAS|ACIDO URSODESOXICOLICO CAPSULA, 250 MG, con 50|ALPRAZOLAM TABLETA CADA TABLETA CONTIENE: ALPRAZOLAM 0.25 MG ENVASE CON 30 TABLETAS|AMLODIPINO TABLETA O CAPSULA, 5 MG, con 30|BEZAFIBRATO TABLETAS, 200 MG, con 30|BUPRENORFINA SOLUCION INYECTABLE, 0.3\/1 MG\/ML, con 6|BUTILHIOSCINA SOLUCION INYECTABLE, 20\/1 MG\/ML, con 3|BUTILHIOSCINA GRAGEA O TABLETA|CEFTRIAXONA SOLUCION INYECTABLE, 1\/10 GR\/ML, con 1|CEFTAZIDIMA SOLUCION INYECTABLE, 1\/3 GR\/ML, con 1|CITICOLINA SOLUCION INYECTABLE, 1 GR, con 5|CLINDAMICINA SOLUCION INYECTABLE, 300\/2 MG\/ML, con 1|CLOROPIRAMINA TABLETAS O GRAGEAS, 25 MG, con 20|CLOPIDOGREL TABLETA DE 75 MG. ENVASE CON 28 TABLETAS|DEXAMETASONA SOLUCION INYECTABLE, 8\/2 MG\/ML, con 1|DICLOFENACO SOLUCION INYECTABLE, 75\/3 MG\/ML, con 2|DICLOFENACO CAPSULA O GRAGEA|DIFENHIDRAMINA SOLUCION INYECTABLE, 100\/10 MG\/ML, con 1|DIFENIDOL SOLUCION INYECTABLE, 40\/2 MG\/ML, con 2|DIFENIDOL TABLETA|DIGOXINA TABLETAS, 0.25 MG, con 20|ENOXAPARINA SOLUCION INYECTABLE, 40\/0.4 MG\/ML, con 2|ENOXAPARINA SOLUCION INYECTABLE, 60\/0.6 MG\/ML, con 2|ESPIRONOLACTONA TABLETAS, 25 MG, con 30|FENITOINA SOLUCION INYECTABLE, 250\/5 MG\/ML, con 1|FLUCONAZOL SOLUCION INYECTABLE, 100\/50 MG\/ML, con 1|FLUCONAZOL CAPSULA O TABLETA|FUROSEMIDA SOLUCION INYECTABLE, 20\/2 MG\/ML, con 5|GABAPENTINA CAPSULA, 300 MG, con 15|HIDROXIZINA TABLETA O GRAGEA, 10 MG, con 30|HIPROMELOSA, SOLUCION OFTALMICA AL 0.5%, CADA ML CONTIENE 5 MG, ENVASE CON GOTERO INTEGRAL CON 15 ML|INSULINA GLARGINA SOLUCION INYECTABLE, 100\/1 UI\/ML, con 1000|IPRATROPIO SOLUCION NEBULIZADOR, 0.25\/1 MG\/ML, con 20|ISOSORBIDA TABLETAS, 10 MG, con 20|LEVOFLOXACINO SOLUCION INYECTABLE, 500\/100 MG\/ML, con 1|LOPERAMIDA COMPRIMIDOS, GRAGEAS O TABLETAS, 2 MG, con 12|MEROPENEM SOLUCION INYECTABLE, 1 GR, con 1|METAMIZOL SODICO SOLUCION INYECTABLE, 1\/2 GR\/ML, con 3|METFORMINA TABLETAS, 850 MG, con 30|METOCLOPRAMIDA SOLUCION INYECTABLE, 10\/2 MG\/ML, con 6|METOCLOPRAMIDA TABLETAS, 10 MG, con 20|METOPROLOL TABLETAS, 100 MG, con 20|NIFEDIPINO COMPRIMIDOS L.P., 30 MG, con 30|NISTATINA TABLETAS VAGINALES, 100000 UI, con 12|ONDANSETRON SOLUCION INYECTABLE, 8\/4 MG\/ML, con 3|OMEPRAZOL SOLUCION INYECTABLE, 40\/10 MG\/ML, con 1|PREGABALINA CAPSULA, 75 MG, con 28|PRAVASTATINA TABLETAS, 10 MG, con 30|RESINA DE COLESTIRAMINA SOBRES, 4 GR, con 50|RIFAXIMINA TABLETAS, 200 MG, con 28|ROSUVASTATINA TABLETAS, 10 MG, con 30|SENOSIDOS A-B TABLETAS, 8.6 MG, con 20|SUCRALFATO TABLETAS, 1 GR, con 40|TELMISARTAN TABLETAS, 40 MG, con 30|VALSARTAN COMPRIMIDOS, 80 MG, con 30| VANCOMICINA SOLUCION INYECTABLE, 500 MG, con 1|CEFTRIAXONA SOLUCION INYECTABLE, 1\/10|AMIKACINA SOLUCION INYECTABLE, 500\/2|FITOMENADIONA|OMEPRAZOL SOLUCION INYECTABLE, 40\/10|METRONIDAZOL SOLUCION INYECTABLE, 500\/100|METOCLOPRAMIDA SOLUCION INYECTABLE, 10\/2|FLUOXETINA TABLETA O CAPSULA, 20|TRAMADOL SOLUCION INYECTABLE, 100\/2|KETOROLACO SOLUCION INYECTABLE, 30\/1|PARACETAMOL SOLUCION INYECTABLE 1 G \/ 100|TELMISARTAN - HIDROCLOROTIAZIDA TABLETAS, 80)/g);
-                var dosis = medicamentos[i].match(/Tomar\/Aplicar (\d+)/g);
-                var intervalo = medicamentos[i].match(/cada (\d+)/g);
-                var eliminado = medicamentos[i].includes('Fecha eliminación');
-                if (medicamento && dosis && intervalo && !eliminado) {
-                    var li = document.createElement('li');
-                    li.textContent = abreviarMedicamento(medicamento[0]) + ' ' + dosis[0].replace('Tomar\/Aplicar ', '') + ' CADA ' + intervalo[0].replace('cada ', '') + ' HORAS';
-                    listaMedicamentos.appendChild(li);
-                }
-            }
-        }
-
-        function abreviarMedicamento(medicamento) {
-            switch (medicamento) {
-                
-                case 'ACIDO ACETILSALICILICO TABLETAS. CADA TABLETA CONTIENE: ACIDO ACETILSALICILICO 100 MG. CAJA CON 30 TABLETAS':
-                    return 'ACIDO ACETILSALICILICO 100MG VO';
-                case 'ACIDO URSODESOXICOLICO CAPSULA, 250 MG, con 50':
-                    return 'ACIDO URSODESOXICOLICO 250MG VO';
-                case 'ALPRAZOLAM TABLETA CADA TABLETA CONTIENE: ALPRAZOLAM 0.25 MG ENVASE CON 30 TABLETAS':
-                    return 'ALPRAZOLAM 0.25MG VO';
-                case 'AMLODIPINO TABLETA O CAPSULA, 5 MG, con 30':
-                    return 'AMLODIPINO 5MG VO';
-                case 'BEZAFIBRATO TABLETAS, 200 MG, con 30':
-                    return 'BEZAFIBRATO 200MG VO';
-                case 'BUPRENORFINA SOLUCION INYECTABLE, 0.3/1 MG/ML, con 6':
-                    return 'BUPRENORFINA 0.3MG IV';
-                case 'BUTILHIOSCINA SOLUCION INYECTABLE, 20/1 MG/ML, con 3':
-                    return 'BUTILHIOSCINA 20MG IV';
-                case 'BUTILHIOSCINA GRAGEA O TABLETA':
-                    return 'BUTILHIOSCINA 10MG IV';
-                case 'CEFTRIAXONA SOLUCION INYECTABLE, 1/10 GR/ML, con 1':
-                    return 'CEFTRIAXONA 1G IV';
-                case 'CEFTAZIDIMA SOLUCION INYECTABLE, 1/3 GR/ML, con 1':
-                    return 'CEFTAZIDIMA 1G IV';
-                case 'CITICOLINA SOLUCION INYECTABLE, 1 GR, con 5':
-                    return 'CITICOLINA 1G IV';
-                    case 'CLINDAMICINA SOLUCION INYECTABLE, 300/2 MG/ML, con 1':
-                    return 'CLINDAMICINA 300MG IV';
-                    case 'CLOROPIRAMINA TABLETAS O GRAGEAS, 25 MG, con 20':
-                    return 'CLOROPIRAMINA 25MG VO';
-                    case 'CLOPIDOGREL TABLETA DE 75 MG. ENVASE CON 28 TABLETAS':
-                    return 'CLOPIDOGREL 75MG VO';
-                    case 'DEXAMETASONA SOLUCION INYECTABLE, 8/2 MG/ML, con 1':
-                    return 'DEXAMETASONA 8MG IV';
-                    case 'DICLOFENACO SOLUCION INYECTABLE, 75/3 MG/ML, con 2':
-                    return 'DICLOFENACO 75MG IV';
-                    case 'DICLOFENACO CAPSULA O GRAGEA':
-                    return 'DICLOFENACO 100MG VO';
-                    case 'DIFENHIDRAMINA SOLUCION INYECTABLE, 100/10 MG/ML, con 1':
-                    return 'DIFENHIDRAMINA 100MG IV';
-                    case 'DIFENIDOL SOLUCION INYECTABLE, 40/2 MG/ML, con 2':
-                    return 'DIFENIDOL 40MG IV';
-                    case 'DIFENIDOL TABLETA':
-                    return 'DIFENIDOL 25MG VO';
-                    case 'DIGOXINA TABLETAS, 0.25 MG, con 20':
-                    return 'DIGOXINA 0.25MG VO';
-                    case 'ENOXAPARINA SOLUCION INYECTABLE, 40/0.4 MG/ML, con 2':
-                    return 'ENOXAPARINA 40MG,';
-                    case 'ENOXAPARINA SOLUCION INYECTABLE, 60/0.6 MG/ML, con 2':
-                    return 'ENOXAPARINA 60MG,';
-                    case 'ESPIRONOLACTONA TABLETAS, 25 MG, con 30':
-                    return 'ESPIRONOLACTONA 25MG VO';
-                    case 'FENITOINA SOLUCION INYECTABLE, 250/5 MG/ML, con 1':
-                    return 'FENITOINA 250MG IV';
-                    case 'FLUCONAZOL SOLUCION INYECTABLE, 100/50 MG/ML, con 1':
-                    return 'FLUCONAZOL 100MG IV';
-                    case 'FLUCONAZOL CAPSULA O TABLETA':
-                    return 'FLUCONAZOL 100MG VO';
-                    case 'FUROSEMIDA SOLUCION INYECTABLE, 20/2 MG/ML, con 5':
-                    return 'FUROSEMIDA 20MG IV';
-                    case 'GABAPENTINA CAPSULA, 300 MG, con 15':
-                    return 'GABAPENTINA 300MG VO';
-                    case 'HIDROXIZINA TABLETA O GRAGEA, 10 MG, con 30':
-                    return 'HIDROXIZINA 10MG VO';
-                    case 'HIPROMELOSA, SOLUCION OFTALMICA AL 0.5%, CADA ML CONTIENE 5 MG, ENVASE CON GOTERO INTEGRAL CON 15 ML':
-                    return 'HIDROMELOSA 5MG SOL OFTALMICA';
-                    case 'INSULINA GLARGINA SOLUCION INYECTABLE, 100/1 UI/ML, con 1000':
-                    return 'INSULINA GLARGINA';
-                    case 'IPRATROPIO SOLUCION NEBULIZADOR, 0.25/1 MG/ML, con 20':
-                    return 'IPRATROPIO 0.25MG SOL NEBULIZADOR';
-                    case 'ISOSORBIDA TABLETAS, 10 MG, con 20':
-                    return 'ISOSORBIDA 10MG VO';
-                    case 'LEVOFLOXACINO SOLUCION INYECTABLE, 500/100 MG/ML, con 1':
-                    return 'LEVOFLOXACINO 500MG IV';
-                    case 'LOPERAMIDA COMPRIMIDOS, GRAGEAS O TABLETAS, 2 MG, con 12':
-                    return 'LOPERAMIDA 2MG VO';
-                    case 'MEROPENEM SOLUCION INYECTABLE, 1 GR, con 1':
-                    return 'MEROPENEM 1G IV';
-                    case 'METAMIZOL SODICO SOLUCION INYECTABLE, 1/2 GR/ML, con 3':
-                    return 'METAMIZOL 1G IV';
-                    case 'METFORMINA TABLETAS, 850 MG, con 30':
-                    return 'METFORMINA 850MG VO';
-                    case 'METOCLOPRAMIDA SOLUCION INYECTABLE, 10/2 MG/ML, con 6':
-                    return 'METOCLOPRAMIDA 10MG IV';
-                    case 'METOCLOPRAMIDA TABLETAS, 10 MG, con 20':
-                    return 'METOCLOPRAMIDA 10MG VO';
-                    case 'METOPROLOL TABLETAS, 100 MG, con 20':
-                    return 'METOPROLOL 100MG VO';
-                    case 'NIFEDIPINO COMPRIMIDOS L.P., 30 MG, con 30':
-                    return 'NIFEDIPINO 30MG VO';
-                    case 'NISTATINA TABLETAS VAGINALES, 100000 UI, con 12':
-                    return 'NISTATINA 100000UI TABLETA';
-                    case 'ONDANSETRON SOLUCION INYECTABLE, 8/4 MG/ML, con 3':
-                    return 'ONDANSETRON 8MG IV';
-                    case 'OMEPRAZOL SOLUCION INYECTABLE, 40/10 MG/ML, con 1':
-                    return 'OMEPRAZOL 40MG IV';
-                    case 'PREGABALINA CAPSULA, 75 MG, con 28':
-                    return 'PREGABALINA 75MG VO';
-                    case 'PRAVASTATINA TABLETAS, 10 MG, con 30':
-                    return 'PRAVASTATINA 10MG VO';
-                    case 'RESINA DE COLESTIRAMINA SOBRES, 4 GR, con 50':
-                    return 'COLESTIRAMINA 4G SOBRES';
-                    case 'RIFAXIMINA TABLETAS, 200 MG, con 28':
-                    return 'RIFAXIMINA 200MG VO';
-                    case 'ROSUVASTATINA TABLETAS, 10 MG, con 30':
-                    return 'ROSUVASTATINA 10MG VO';
-                    case 'SENOSIDOS A-B TABLETAS, 8.6 MG, con 20':
-                    return 'SENOSIDOS A-B 8.6MG VO';
-                    case 'SUCRALFATO TABLETAS, 1 GR, con 40':
-                    return 'SUCRALFATO 1G VO';
-                    case 'TELMISARTAN TABLETAS, 40 MG, con 30':
-                    return 'TELMISARTAN 40MG VO';
-                    case 'VALSARTAN COMPRIMIDOS, 80 MG, con 30':
-                    return 'VALSARTAN 80MG VO';
-                    case 'VANCOMICINA SOLUCION INYECTABLE, 500 MG, con 1':
-                    return 'VANCOMICINA 500MG IV';            
-
-                case 'AMIKACINA SOLUCION INYECTABLE, 500/2':
-                    return 'AMIKACINA 500MG IV';
-                case 'FITOMENADIONA':
-                    return 'FITOMENADIONA (VITAMINA K1) 10MG IV';
-                case 'OMEPRAZOL SOLUCION INYECTABLE, 40/10':
-                    return 'OMEPRAZOL 40MG IV';
-                case 'METRONIDAZOL SOLUCION INYECTABLE, 500/100':
-                    return 'METRONIDAZOL 500MG IV';
-                case 'METOCLOPRAMIDA SOLUCION INYECTABLE, 10/2':
-                    return 'METOCLOPRAMIDA 10MG IV';
-                case 'FLUOXETINA TABLETA O CAPSULA, 20':
-                    return 'FLUOXETINA 20MG VO';
-                case 'TRAMADOL SOLUCION INYECTABLE, 100/2':
-                    return 'TRAMADOL 100MG IV';
-                case 'KETOROLACO SOLUCION INYECTABLE, 30/1':
-                    return 'KETOROLACO 30MG IV';
-                case 'PARACETAMOL SOLUCION INYECTABLE 1 G / 100':
-                    return 'PARACETAMOL 1G IV';
-                case 'TELMISARTAN - HIDROCLOROTIAZIDA TABLETAS, 80':
-                    return 'TELMISARTAN-HIDROCLOROTIAZIDA 80/12.5MG VO';
-                default:
-                    return medicamento;
-            }
-        }
-    </script>
 </body>
   <!--
 <b><div style="font-size: 18px; color: #063970;"><i>'Para mostrar la fecha copiar desde donde está'</i></div></b>
@@ -303,7 +348,6 @@
 "DAVID.RIOS DARIRO86                [CIRU]",
 "IGNACIO.PAVON IGNACIOPR150         [CIRU]",
 "JESUS.MARTINEZ JESUSZJ58",
-"JAVIER.FLORES JAVIERFR479",
 "JOEL.CRUZG JOELCRUZ23              (R.IVAN) [CIRU]",
 "JORGE.MANZUR JORGERJ56             [COLOPROCTO]",
 "ROBERTO.MANZANO ROBERTO17          [COLOPROCTO]",
@@ -404,6 +448,9 @@
 "FAUSTINO.MORALES faustino91        (Dr.Faustino) [PEDIA]",
 "FREDERIC.VELASCO LIZCHAN12         (Dr.Frederic) [PEDIA]",
 "JPABLO.MONTALVO jpablo2023         (Dr.Montalvo) [PEDIA]",
+"FLORENCIO.ALVAREZ FLORENCIO868     (Dr.Florencio) [PEDIA]",
+"MIGUEL.LASTRA MENADA50             (Dr.Lastra) [PEDIA]",
+"FVELASCOS FRED.0011                // CERTIFICADOS",
 //GINECOLOGIA
 "EZEQUIAS.SOBERANOCM nery25eze35    (DR. SOBERANO) [GYO]",
 "JOSE.AQUINO JOSEOJ56               [GYO]",
