@@ -249,6 +249,23 @@ function pasteExtractCopyClear() {
     copyToClipboard(); // Copiar al portapapeles
     clearTextarea(); // Borrar textarea
 }
+
+//FUNCIONES PARA COPIAR Y LIMPIAR MEDICAMENTOS
+function copyToClipboardMedicamentos() {
+    var outputText = document.getElementById('listaMedicamentos').innerText;
+    navigator.clipboard.writeText(outputText).then(() => {
+        document.getElementById('copyMessage').innerText = "Resultado copiado al portapapeles📝";
+    }).catch(err => {
+        console.error('Error al copiar al portapapeles:', err);
+    });
+}
+function extraerCopiarMedicamentos() {
+    extraerMedicamentos(); // Extraer datos
+    copyToClipboardMedicamentos(); // Copiar al portapapeles
+    clearTextarea(); // Borrar textarea
+}
+
+
 ///
 document.getElementById('inputArea').addEventListener('click', function(event) {
     event.preventDefault(); // Evitar comportamiento predeterminado del click

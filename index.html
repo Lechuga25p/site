@@ -12,8 +12,8 @@
     <button onclick="copyToClipboard()">Copiar al portapapeles</button>
    <button onclick="clearTextarea()">Borrar</button>
    <button onclick="pasteFromClipboard(event)">BOTON PARA PEGAR</button>-->
-   <button onclick="pasteExtractCopyClear()">Extraer datos⚙️</button>
-   <button onclick="extraerMedicamentos()">--🛠️--</button>
+   <button onclick="pasteExtractCopyClear()">Extraer⚙️</button>
+   <button onclick="extraerCopiarMedicamentos()">--💊--</button>
    <ul id="listaMedicamentos"></ul>
     <p id="outputArea"></p>
     <p id="copyMessage" style="color: #065470; font-size: 20px; font-weight: bold;"></p>
@@ -26,13 +26,13 @@
 
     <script>
         // Definimos las guardias en un array
-        var guardias = ['A', 'B', 'C', 'D'];
+        var guardias = ['B', 'C', 'D', 'A'];
 
         // Obtenemos la fecha actual
         var fecha = new Date();
 
         // Obtenemos el número de día desde el comienzo del año
-        var inicio = new Date(fecha.getFullYear(), 0, 0);
+        var inicio = new Date(fecha.getFullYear(), 0, 1);
         var diferencia = fecha - inicio;
         var unDia = 1000 * 60 * 60 * 24;
         var dia = Math.floor(diferencia / unDia);
@@ -41,7 +41,7 @@
         var guardiaDelDia = guardias[dia % guardias.length];
 
         // Calculamos cuántas guardias faltan hasta el 30 de junio
-        var fin = new Date(fecha.getFullYear(), 5, 30);
+        var fin = new Date(fecha.getFullYear(), 5, 29);
         var diasRestantes = Math.ceil((fin - fecha) / unDia);
         var guardiasRestantes = Math.floor(diasRestantes / guardias.length);
 
@@ -57,10 +57,10 @@
 
 
   <script>
-      function extraerMedicamentos() {
+          function extraerMedicamentos() {
           var texto = document.getElementById('inputArea').value;
           var medicamentos = [
-           //1,29 
+            //1,3,4,6,7,12,15,16,17,25,29
          'ACIDO ACETILSALICICO',
 'BUPRENORFINA',
 'CAPSAICINA',
@@ -75,7 +75,7 @@
 'OXICODONA',
 'PARACETAMOL',
 'TRAMADOL',
-'TRAMADOL-PARACETAMOL',
+'TRAMADOL/PARACETAMOL',
 'CELECOXIB',
 'DICLOFENACO',
 'ETORICOXIB',
@@ -130,7 +130,7 @@
 ,'CEFALEXINA'
 ,'CEFEPIMA'
 ,'CEFOTAXIMA'
-,'CEFTAZIMIDA'
+,'CEFTAZIDIMA' 
 ,'CEFTRIAXONA'
 ,'CEFUROXIMA'
 ,'CIPROFLOXACINO'
@@ -189,7 +189,7 @@
 ,'TEICOPLANINA'
 ,'TENOFOVIR DISOPROXIL'
 ,'TERBINAFINA'
-,'TRIMETROPINA-SULFAMETOXAZOL'
+,'TRIMETOPRIMA / SULFAMETOXAZOL'
 ,'VALGANCICLOVIR'
 ,'VANCOMICINA'
 ,'ZIDOVUDINA'
@@ -198,7 +198,6 @@
 ,'BUTILHIOSCINA'
 ,'CISAPRIDA'
 ,'DICICLOVERINA'
-,'ESOMEPRAZOL'
 ,'FOSFATO Y CITRATO DE SODIO'
 ,'INFLIXIMAB'
 ,'LACTULOSA'
@@ -219,10 +218,163 @@
 ,'SULFASALAZINA'
 ,'TERLIPRESINA'
 ,'TRIMEBUTINA'
+//3,4 ANGIO Y CARDIOLOGIA
+,'PENTOXIFILINA'
+,'ADENOSINA'
+,'ALTEPLASA'
+,'AMIODARONA'
+,'AMLODIPINO'
+,'ATENOLOL'
+,'ATORVASTATINA'
+,'CARVEDIDOL'
+,'CLOPIDOGREL'
+,'CLORTALIDONA'
+,'DIGOXINA'
+,'DILTIAZEM'
+,'ISOSORBIDE'
+,'ISOSORBIDA'
+,'DOBUTAMINA'
+,'DOPAMINA'
+,'CAPTOPRIL'
+,'ENALAPRIL'
+,'EPINEFRINA'
+,'ESMOLOL'
+,'FELODIPINO'
+,'BISOPROLOL'
+,'HIDRAZALINA'
+,'LOSARTAN-HIDROCLOROTIAZIDA'
+,'LOSARTAN'
+,'METILDOPA'
+,'METOPROLOL'
+,'MILRINONA'
+,'NIFEDIPINO'
+,'NITROPRUSIATO DE SODIO'
+,'POTASIO'
+,'PRAZOSINA'
+,'PROPAFENONA'
+,'TELMISARTAN'
+,'TENECTEPLASA'
+,'GLICERILO'
+,'VALSARTAN'
+,'VERAPAMILO'
+//15 NEFROLOGIA Y UROLOGIA
+,'ACETAZOLAMIDA'
+,'ACIDO MICOFENOLICO'
+,'ALFA CETOANALOGOS DE AMINOACIDOS'
+,'BUMETANIDA'
+,'CICLOSPORINA'
+,'CINACALCET'
+,'DUTASTERIDA'
+,'ERITROPOYETINA'
+,'ESPIRONOLACTONA'
+,'FENAZOPIRIDINA'
+,'FUROSEMIDA'
+,'HIDROCLOROTIAZIDA'
+,'NORFLOXACINO'
+,'OXIBUTININA'
+,'SEVELAMERO'
+,'SILDENAFIL'
+,'SIROLIMUS'
+,'TACROLIMUS'
+,'TADALAFIL'
+,'TAMSULOSINA'
+,'TOLTERODINA'
+//16 NEUMOLOGIA
+,'ACETILCISTEINA'
+,'AMBROXOL'
+,'AMINOFILINA'
+,'BENZONATATO PERLA'
+,'BROMURO DE TIOTROPIO'
+,'BUDESONIDA'
+,'CITRATO DE CAFEÍNA'
+,'DIPROPIONATO DE BECLOMETASONA'
+,'FLUTICASONA - SALMETEROL'
+,'FLUTICASONA- VILANTEROL'
+,'IPRATROPIO – SALBUTAMOL'
+,'IPRATROPIO'
+,'MONTELUKAST'
+,'PIRFERIDONA'
+,'SALBUTAMOL'
+,'TEOFILINA-AMBROXOL'
+,'TEOFILINA'
+//17 NEUROLOGIA
+,'ATOMOXETINA'
+,'BIPERIDENO'
+,'CARBAMAZEPINA'
+,'CINARIZINA'
+,'CITICOLINA'
+,'CLONAZEPAM'
+,'DIAZEPAM'
+,'DONEPECILO'
+,'ELETRIPTÁN'
+,'ERGOTAMINA Y CAFEINA'
+,'FENITOINA'
+,'FENOBARBITAL'
+,'FLUNARIZINA'
+,'GABAPENTINA'
+,'GALANTAMINA'
+,'INTERFERON BETA'
+,'LACOSAMIDA'
+,'LAMOTRIGINA'
+,'LEVETIRACETAM'
+,'LEVODOPA Y CARBIDOPA'
+,'MEMANTINA'
+,'METILFENIDATO'
+,'MIRTAZAPINA'
+,'NICERGOLINA'
+,'NIMODIPINO'
+,'OXCARBAZEPINA'
+,'PERFENAZINA'
+,'PIRIDOSTIGMINA'
+,'PRAMIPEXOL DICLORHIDRATO'
+,'MONOHIDRATADO DE PRAMIPEXOL'
+,'PREGABALINA'
+,'RASAGILINA'
+,'RIVASTIGMINA'
+,'ROTIGOTINA'
+,'TOPIRAMATO'
+,'TOXINA BOTULINICA'
+,'VALPROATO DE MAGNESIO'
+,'VALPROATO SEMISODICO'
+,'VIGABATRINA'
+,'ZOLMITRIPTANO'
+//12 HEMATOLOGIA
+,'ACENOCUMAROL'
+,'ACIDO TRANEXAMICO'
+,'MENADIONA'
+,'DABIGATRAN'
+,'DEFERASIROX'
+,'DEXAMETASONA'
+,'ELTROMBOPAG' 
+,'ENOXAPARINA'
+,'FACTOR DE VON WILLEBRAND'
+,'FITOMENADIONA'
+,'FUMARATO FERROSO'
+,'HEPARINA'
+,'HIERRO DEXTRAN'
+,'INMUNOGLOBULINA HUMANA'
+,'METOCARBAMOL Y PARACETAMOL'
+,'RIVAROXABAN'
+,'ROMIPLOSTIM'
+,'SIMOCTOCOG ALFA'
+,'SULFATO FERROSO'
+//25 REUMATOLOGIA
+,'ADALIMUMAB'
+,'ALOPURINOL'
+,'AZATIOPRINA'
+,'BARICITINIB'
+,'COLCHICINA'
+,'CERTOLIZUMAB PEGOL'
+,'COLECALCIFEROL'
+,'ETANERCEPT'
+,'LEFLUNOMIDA'
+,'TIZANIDINA'
+,'TOCILIZUMAB'
 ];
-          var lista = document.getElementById('listaMedicamentos');
-          lista.innerHTML = '';
-          for (var i = 0; i < medicamentos.length; i++) {
+
+            var lista = document.getElementById('listaMedicamentos');
+            lista.innerHTML = '';
+            for (var i = 0; i < medicamentos.length; i++) {
               var index = texto.indexOf(medicamentos[i]);
               if (index !== -1) {
                   var substring = texto.substring(index);
@@ -261,7 +413,14 @@
                   }
               }
           }
-      }
+      } 
+                  //var altaIndex = substring.indexOf('Fecha alta:');
+                          //  var modificadoIndex = substring.indexOf('Fecha modificación');
+                          //  var nextMedIndex = (i < medicamentos.length - 1) ? substring.indexOf(medicamentos[i + 1]) : -1;
+                          //  if ((altaIndex !== -1 || modificadoIndex !== -1) && (nextMedIndex === -1 || Math.min(altaIndex, modificadoIndex) < nextMedIndex)) {
+                          //      li.textContent += ' ';
+                          //      lista.appendChild(li);
+                          //  }
   </script>
 
 </body>
@@ -409,7 +568,7 @@
 "IVES.PEDRO IVESMU2024              [TRAUMA]",
 "MANUEL.FERNANDEZ manuel610101      [TRAUMA]",
 "PAULO.LOPEZ LOMUPAULO              [TRAUMA]",
-"ABRAHAM.RAMIREZ ABRAHAM78          [TRAUMA]",
+"ABRAHAM.RAMIREZT ABRAHAM78          [TRAUMA]",
 "JORGE.MOO JORGEOJ53                (DR.MOO KIM) [TRAUMA]",
 "JORGE.SANCHEZ JORGEZJ57            [TRAUMA]",
 "JUAN.LOPEZ JUANZJ45                (DR.LOPEZ ROMERO CIRUGIA DE COLUMNA) [TRAUMA]",
@@ -433,13 +592,13 @@
 "JESUSM.HERNANDEZ jesusm2022",
 
 
-//"FANNY.PEREYRA fannyp2022",
+"FANNY.PEREYRA fannyp2022",
 //PEDIAPLAYA
 "GCHAVEZ GCHAVEZ561                 (Dra.Chávez) [PEDIA]",
 "JUAN.HERNANDEZ juanhm626           (Dr.Marroquín) [PEDIA]",
 "JOSE.UITZIL UITZIL983              (Dr.Uitzil) [PEDIA]",
 "CANDELARIO.ZAVALA CANDELARIO1529   (Dr.Zavala) [PEDIA]",
-"MARCELO.SOTOMAYOR MARCELORM79      (Dr.Sotomayor) [PEDIA]",
+"MARCELO.SOTOMAYOR MARCELORM79      (Dr.Sotomayor) [CIRU PEDIA]",
 "MARIA.JOSE COYOC                   (Dra.Coyoc) [PEDIA]",
 "ROSA.MARTINEZ MARBAR               (Dra.Martínez) [PEDIA]",
 "DANIEL.AGUILAR DANIELAR670         (Dr.Daniel Aguilar) [PEDIA]",
@@ -450,7 +609,8 @@
 "JPABLO.MONTALVO jpablo2023         (Dr.Montalvo) [PEDIA]",
 "FLORENCIO.ALVAREZ FLORENCIO868     (Dr.Florencio) [PEDIA]",
 "MIGUEL.LASTRA MENADA50             (Dr.Lastra) [PEDIA]",
-"FVELASCOS FRED.0011                // CERTIFICADOS",
+"FVELASCOS FRED.0011                // CERTIFICADOS Dr.Frederic",
+"ARTURO.ARIAS ARTURO47              (Dr.Arias [PEDIA])",
 //GINECOLOGIA
 "EZEQUIAS.SOBERANOCM nery25eze35    (DR. SOBERANO) [GYO]",
 "JOSE.AQUINO JOSEOJ56               [GYO]",
@@ -486,7 +646,7 @@
 "GONZA.VANIAC DRAVGC88              (VANIA GONZALEZ CORREA)",
 "GONZALO.MENDOZA GONZALOAG77        (GONZALO MENDOZA SANCHEZ)",
 "ISABEL.RAMON ISABEL27              (ISABEL CRISTINA RAMON PEREZ)",
-"IVAN.CERINO IVAN727                (IVAN ANTONIO CERINO HERRERA)",
+"IVAN.CERINO IVAN727                (DR.CERINO) [TYO]",
 "IVONNE.RINCON IVONNE847            (IVONNE DEL CARMEN RINCON ARANO)",
 "JOSE.AQUINO JOSEOJ56               (JOSE MANUEL AQUINO HERNANDEZ)",
 "JOSE.CADENA JOSECADE05             (JOSE ANTONIO CADENA GARCIA)",
