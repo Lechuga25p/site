@@ -217,7 +217,7 @@ function extractData() {
 function copyToClipboard() {
     var outputText = document.getElementById('outputArea').innerText;
     navigator.clipboard.writeText(outputText).then(() => {
-        document.getElementById('copyMessage').innerText = "Resultado copiado al portapapeles📝";
+        document.getElementById('copyMessage').innerText = "RESULTADO COPIADO AL PORTAPAPELES!!";
     }).catch(err => {
         console.error('Error al copiar al portapapeles:', err);
     });
