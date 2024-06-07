@@ -53,10 +53,10 @@ function extractData() {
         'Cuerpos cetónicos': 'CETONAS',
         'Nitritos': 'NITRITOS',
         'Esterasa Leucocitaria': 'ESTERASA',
-        'Leucocitos': 'LEUC',
+        'Leucocitos': 'LEUCOS',
         //Eritrocitos no por que aparecen dos veces en el ego, la primera en hb y solo esa aparece sin valor 
-        'Bacterias': 'BAC',
-        'Levaduras': 'LEV',
+        'Bacterias': 'BACTERIAS',
+        //'Levaduras': 'LEVADURAS',
         //ENZIMAS CARDIACAS
         'TROPONIN I': 'Trop I',
         'CREATINFOSFOQUINASA (CPK TOTAL)': 'CPK',
@@ -83,6 +83,9 @@ function extractData() {
         //CACA
         'SANGRE OCULTA EN HECES': 'SOH',
         'Antigeno de Helicobacter pylori': 'H.PYLORI',
+        'Trofozoitos (busqueda de amiba)': 'TROFOZOITOS',
+        'Flora bacteriana':'FLORA',
+        'Sangre macroscópica': 'SANGRE',
         //OTROS
         //'INMUNOFLUORESCENCIA)': 'PROCA',
         'PROLACTINA': 'PRL',
@@ -96,6 +99,7 @@ function extractData() {
         'GASOMETRIA ARTERIAL': 'GASO',
         'CITOMETRIA HEMATICA': 'BH',
         'ELECTROLITOS SERICOS': 'ELES',
+        'COPROLOGICO': 'COPROLOGICO'
         //'QUIMICA CLINICA': 'QS'
 
     };
