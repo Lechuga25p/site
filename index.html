@@ -13,6 +13,8 @@
    <button onclick="clearTextarea()">Borrar</button>
    <button onclick="pasteFromClipboard(event)">BOTON PARA PEGAR</button>-->
    <button onclick="pasteExtractCopyClear()">Extraer⚙️</button>
+   <button onclick="extraerCopiarMedicamentos()">--💊--</button>
+   <ul id="listaMedicamentos"></ul>
     <p id="outputArea"></p>
     <p id="copyMessage" style="color: #065470; font-size: 30px; font-weight: bold;"></p>
     <script src="script.js"></script>
@@ -48,7 +50,376 @@
 
         // Mostramos la guardia del día y cuántas guardias faltan en la página
         document.getElementById('mensaje').textContent = 'Guardia ' + guardiaDelDia + ': ' + faltantesParaEstaGuardia + ' restantes';
+
+        
     </script>
+
+     <script>
+        function extraerMedicamentos() {
+        var texto = document.getElementById('inputArea').value;
+        var medicamentos = [
+          //1,3,4,6,7,12,15,16,17,25,29
+       'ACIDO ACETILSALICICO',
+'BUPRENORFINA',
+'CAPSAICINA',
+'CLONIXINATO DE LISINA',
+'DEXMEDETOMIDINA',
+'ETOFENAMATO',
+'IBUPROFENO',
+'KETOROLACO',
+'METAMIZOL',
+'MORFINA',
+'NALBUFINA',
+'OXICODONA',
+'PARACETAMOL',
+'TRAMADOL',
+'TRAMADOL/PARACETAMOL',
+'CELECOXIB',
+'DICLOFENACO',
+'ETORICOXIB',
+'INDOMETACINA',
+'MELOXICAM',
+'NAPROXENO',
+'ORFENADRINA',
+'PIROXICAM',
+//6 ENDOCRINO
+'DAPAGLIFLOZINA',
+'DEFLAZACORT',
+'DENOSUMAB',
+'DESMOPRESINA',
+'EFEDRINA',
+'FENOFIBRATO',
+'GLIBENCLAMIDA',
+'GLIMEPRIRIDA',
+'INSULINA ASPARTICA',
+'INSULINA DETEMIR',
+'INSULINA GLARGINA',
+'INSULINA HUMANA ACCIÓN RÁPIDA',
+'INSULINA HUMANA ACCIÓN INTERMEDIA',
+'INSULINA LISPRO',
+'LEVOTIROXINA',
+'METFORMINA',
+'METILPREDNISOLONA',
+'PRAVASTATINA',
+'PREDNISOLONA',
+'PREDNISONA',
+'ROSUVASTATINA',
+'SAXAGLIPTINA',
+'SOMATROPINA',
+'TESTOSTERONA',
+'TIAMAZOL',
+'VIDALGLIPTINA',
+//7 infecciosas parasitarias
+'ABACAVIR',
+'ACICLOVIR',
+'ALBENDAZOL'
+,'AMFOTERICINA B'
+,'AMIKACINA'
+,'AMOXICILINA-ACIDO CLAVULANICO'
+,'AMOXICILINA'
+,'AMPICILINA'
+,'AZITROMICINA'
+,'BENCILPENICILINA BENZATINICA'
+,'BENCILPENICILINA PROCAINICA'
+,'BENCILPENICILINA SODICA CRISTALINA'
+,'BENZATINA' 
+,'BICTEGRAVIR/EMTRICITABINA/TENOFOVIR'
+,'CASPOFUNGINA'
+,'CEFALEXINA'
+,'CEFEPIMA'
+,'CEFOTAXIMA'
+,'CEFTAZIDIMA' 
+,'CEFTRIAXONA'
+,'CEFUROXIMA'
+,'CIPROFLOXACINO'
+,'CLARITROMICINA'
+,'CLINDAMICINA'
+,'CLORANFENICOL'
+,'DARUNAVIR'
+,'DARUNAVIR/COBICISTAT'
+,'DICLOXACILINA'
+,'DOLUTEGRAVIR'
+,'DOLUTEGRAVIR/ABACAVIR/LAMIVUDINA'
+,'DORAVIRINA'
+,'DOXICICLINA'
+,'EFAVIRENZ'
+,'ELVITEGRAVIR/COBICISTA/EMTRICITABINA/TENOFOVIR'
+,'ALAFENAMIDA'
+,'EMTRICITABINA-TENOFOVIR'
+,'DISOPROXIL FUMARATO'
+,'ERITROMICINA'
+,'ERTAPENEM'
+,'ESTREPTOMICINA'
+,'ETRAVIRINA'
+,'FLUCONAZOL'
+,'FOSFOMICINA'
+,'GANCICLOVIR'
+,'GENTAMICINA'
+,'HIDROXICLOROQUINA'
+,'ISONIAZIDA'
+,'ISONIAZIDA Y RIFAMPICINA'
+,'ISONIAZIDA, RIFAMPICINA, PIRAZINAMIDA, ETAMBUTOL'
+,'ITRACONAZOL'
+,'IVERMECTINA'
+,'KETOCONAZOL'
+,'LAMIVUDINA'
+,'LEVOFLOXACINO'
+,'LINAGLIPTINA'
+,'LINEZOLID'
+,'LOPINAVIR-RITONAVIR'
+,'MEBENDAZOL'
+,'MEROPENEM'
+,'METRONIDAZOL'
+,'MOXIFLOXACINO'
+,'NEVIRAPINA'
+,'NISTATINA'
+,'NITROFURANTOINA'
+,'OSELTAMIVIR'
+,'PIPERACILINA-TAZOBACTAM'
+,'QUINFAMIDA'
+,'RALTEGRAVIR'
+,'RIFAMPICINA'
+,'RIFAXIMINA'
+,'RITONAVIR'
+,'SOFOSBUVIR-VELPATASVIR'
+,'SULFAMETOXAZOL-TRIMETROPINA'
+,'TALIDOMIDA'
+,'TEICOPLANINA'
+,'TENOFOVIR DISOPROXIL'
+,'TERBINAFINA'
+,'TRIMETOPRIMA / SULFAMETOXAZOL'
+,'VALGANCICLOVIR'
+,'VANCOMICINA'
+,'ZIDOVUDINA'
+,'ACIDO URSODEOXICOLICO'
+,'BUTILHIOSCINA-METAMIZOL'
+,'BUTILHIOSCINA'
+,'CISAPRIDA'
+,'DICICLOVERINA'
+,'FOSFATO Y CITRATO DE SODIO'
+,'INFLIXIMAB'
+,'LACTULOSA'
+,'LOPERAMIDA'
+,'MESALAZINA'
+,'METOCLOPRAMIDA'
+,'OCTREOTIDA'
+,'OMEPRAZOL'
+,'PANCREATINA'
+,'PINAVERIO'
+,'PIPERIDOLATO'
+,'PLANTAGO PSYLLIUM'
+,'POLIETILENGLICOL'
+,'COLESTIRAMINA'
+,'SENOSIDOS A-B'
+,'SOFUSBUVIR'
+,'SUCRALFATO'
+,'SULFASALAZINA'
+,'TERLIPRESINA'
+,'TRIMEBUTINA'
+//3,4 ANGIO Y CARDIOLOGIA
+,'PENTOXIFILINA'
+,'ADENOSINA'
+,'ALTEPLASA'
+,'AMIODARONA'
+,'AMLODIPINO'
+,'ATENOLOL'
+,'ATORVASTATINA'
+,'CARVEDIDOL'
+,'CLOPIDOGREL'
+,'CLORTALIDONA'
+,'DIGOXINA'
+,'DILTIAZEM'
+,'ISOSORBIDE'
+,'ISOSORBIDA'
+,'DOBUTAMINA'
+,'DOPAMINA'
+,'CAPTOPRIL'
+,'ENALAPRIL'
+,'EPINEFRINA'
+,'ESMOLOL'
+,'FELODIPINO'
+,'BISOPROLOL'
+,'HIDRAZALINA'
+,'LOSARTAN-HIDROCLOROTIAZIDA'
+,'LOSARTAN'
+,'METILDOPA'
+,'METOPROLOL'
+,'MILRINONA'
+,'NIFEDIPINO'
+,'NITROPRUSIATO DE SODIO'
+,'POTASIO'
+,'PRAZOSINA'
+,'PROPAFENONA'
+,'TELMISARTAN'
+,'TENECTEPLASA'
+,'GLICERILO'
+,'VALSARTAN'
+,'VERAPAMILO'
+//15 NEFROLOGIA Y UROLOGIA
+,'ACETAZOLAMIDA'
+,'ACIDO MICOFENOLICO'
+,'ALFA CETOANALOGOS DE AMINOACIDOS'
+,'BUMETANIDA'
+,'CICLOSPORINA'
+,'CINACALCET'
+,'DUTASTERIDA'
+,'ERITROPOYETINA'
+,'ESPIRONOLACTONA'
+,'FENAZOPIRIDINA'
+,'FUROSEMIDA'
+,'HIDROCLOROTIAZIDA'
+,'NORFLOXACINO'
+,'OXIBUTININA'
+,'SEVELAMERO'
+,'SILDENAFIL'
+,'SIROLIMUS'
+,'TACROLIMUS'
+,'TADALAFIL'
+,'TAMSULOSINA'
+,'TOLTERODINA'
+//16 NEUMOLOGIA
+,'ACETILCISTEINA'
+,'AMBROXOL'
+,'AMINOFILINA'
+,'BENZONATATO PERLA'
+,'BROMURO DE TIOTROPIO'
+,'BUDESONIDA'
+,'CITRATO DE CAFEÍNA'
+,'DIPROPIONATO DE BECLOMETASONA'
+,'FLUTICASONA - SALMETEROL'
+,'FLUTICASONA- VILANTEROL'
+,'IPRATROPIO – SALBUTAMOL'
+,'IPRATROPIO'
+,'MONTELUKAST'
+,'PIRFERIDONA'
+,'SALBUTAMOL'
+,'TEOFILINA-AMBROXOL'
+,'TEOFILINA'
+//17 NEUROLOGIA
+,'ATOMOXETINA'
+,'BIPERIDENO'
+,'CARBAMAZEPINA'
+,'CINARIZINA'
+,'CITICOLINA'
+,'CLONAZEPAM'
+,'DIAZEPAM'
+,'DONEPECILO'
+,'ELETRIPTÁN'
+,'ERGOTAMINA Y CAFEINA'
+,'FENITOINA'
+,'FENOBARBITAL'
+,'FLUNARIZINA'
+,'GABAPENTINA'
+,'GALANTAMINA'
+,'INTERFERON BETA'
+,'LACOSAMIDA'
+,'LAMOTRIGINA'
+,'LEVETIRACETAM'
+,'LEVODOPA Y CARBIDOPA'
+,'MEMANTINA'
+,'METILFENIDATO'
+,'MIRTAZAPINA'
+,'NICERGOLINA'
+,'NIMODIPINO'
+,'OXCARBAZEPINA'
+,'PERFENAZINA'
+,'PIRIDOSTIGMINA'
+,'PRAMIPEXOL DICLORHIDRATO'
+,'MONOHIDRATADO DE PRAMIPEXOL'
+,'PREGABALINA'
+,'RASAGILINA'
+,'RIVASTIGMINA'
+,'ROTIGOTINA'
+,'TOPIRAMATO'
+,'TOXINA BOTULINICA'
+,'VALPROATO DE MAGNESIO'
+,'VALPROATO SEMISODICO'
+,'VIGABATRINA'
+,'ZOLMITRIPTANO'
+//12 HEMATOLOGIA
+,'ACENOCUMAROL'
+,'ACIDO TRANEXAMICO'
+,'MENADIONA'
+,'DABIGATRAN'
+,'DEFERASIROX'
+,'DEXAMETASONA'
+,'ELTROMBOPAG' 
+,'ENOXAPARINA'
+,'FACTOR DE VON WILLEBRAND'
+,'FITOMENADIONA'
+,'FUMARATO FERROSO'
+,'HEPARINA'
+,'HIERRO DEXTRAN'
+,'INMUNOGLOBULINA HUMANA'
+,'METOCARBAMOL Y PARACETAMOL'
+,'RIVAROXABAN'
+,'ROMIPLOSTIM'
+,'SIMOCTOCOG ALFA'
+,'SULFATO FERROSO'
+//25 REUMATOLOGIA
+,'ADALIMUMAB'
+,'ALOPURINOL'
+,'AZATIOPRINA'
+,'BARICITINIB'
+,'COLCHICINA'
+,'CERTOLIZUMAB PEGOL'
+,'COLECALCIFEROL'
+,'ETANERCEPT'
+,'LEFLUNOMIDA'
+,'TIZANIDINA'
+,'TOCILIZUMAB'
+];
+
+          var lista = document.getElementById('listaMedicamentos');
+          lista.innerHTML = '';
+          for (var i = 0; i < medicamentos.length; i++) {
+            var index = texto.indexOf(medicamentos[i]);
+            if (index !== -1) {
+                var substring = texto.substring(index);
+                var match = substring.match(/\d+/);
+                var tomarIndex = substring.indexOf('Tomar/Aplicar');
+                if (tomarIndex !== -1) {
+                    var tomarSubstring = substring.substring(tomarIndex);
+                    var tomarMatch = tomarSubstring.match(/\d+/);
+                    if (match && tomarMatch) {
+                        var multiplicacion = match[0] * tomarMatch[0];
+                        var li = document.createElement('li');
+                        var unidad = substring.match(/MG|G|UI/);
+                        var tipo = substring.match(/INYECTABLE|TABLETAS|COMPRIMIDOS|GRAGEAS|CAPSULA/);
+                        var tipoTexto = '';
+                        if (tipo) {
+                            tipoTexto = (tipo[0] === 'INYECTABLE') ? ' IV' : ' VO';
+                        }
+                        var horas = tomarSubstring.match(/cada (\d+) HORAS/);
+                        var horasTexto = '';
+                        if (horas) {
+                            horasTexto = ' CADA ' + horas[1] + ' HORAS';
+                        }
+                        if (unidad) {
+                            li.textContent = medicamentos[i] + ' ' + multiplicacion + ' ' + unidad[0] + tipoTexto + horasTexto;
+                        } else {
+                            li.textContent = medicamentos[i] + ' ' + multiplicacion + tipoTexto + horasTexto;
+                        }
+                        // Verifica si el medicamento tiene la palabra "Alta" después de los detalles del medicamento
+                        var altaIndex = substring.indexOf('Fecha alta:');
+                        var nextMedIndex = (i < medicamentos.length - 1) ? substring.indexOf(medicamentos[i + 1]) : -1;
+                        if (altaIndex !== -1 && (nextMedIndex === -1 || altaIndex < nextMedIndex)) {
+                            li.textContent += '';
+                            lista.appendChild(li);
+                        }
+                    }
+                }
+            }
+        }
+    } 
+                //var altaIndex = substring.indexOf('Fecha alta:');
+                        //  var modificadoIndex = substring.indexOf('Fecha modificación');
+                        //  var nextMedIndex = (i < medicamentos.length - 1) ? substring.indexOf(medicamentos[i + 1]) : -1;
+                        //  if ((altaIndex !== -1 || modificadoIndex !== -1) && (nextMedIndex === -1 || Math.min(altaIndex, modificadoIndex) < nextMedIndex)) {
+                        //      li.textContent += ' ';
+                        //      lista.appendChild(li);
+                        //  }
+</script>
 </body>
 </html>
  
