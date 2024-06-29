@@ -6,14 +6,17 @@
 
 </head>
 <body>
-    <h1 style="font-size: xx-large; color: #063970;"><i>"Lechuga"</i></h1>
+    <br>
+    <br>
+    <br>
+    <h1 style="font-size: xx-large; color: #063970;"><i>"Cheems Labs"</i></h1>
     <textarea id="inputArea" rows="18" cols="50" placeholder="Pegar✏️"></textarea><br>
     <!--<button onclick="extractData()">Extraer datos</button>
     <button onclick="copyToClipboard()">Copiar al portapapeles</button>
    <button onclick="clearTextarea()">Borrar</button>
    <button onclick="pasteFromClipboard(event)">BOTON PARA PEGAR</button>-->
    <button onclick="pasteExtractCopyClear()">Extraer⚙️</button>
-   <button onclick="extraerCopiarMedicamentos()">--💊--</button>
+    <!--<button onclick="extraerCopiarMedicamentos()">--💊--</button>-->
    <ul id="listaMedicamentos"></ul>
     <p id="outputArea"></p>
     <p id="copyMessage" style="color: #065470; font-size: 30px; font-weight: bold;"></p>
@@ -49,7 +52,7 @@
         var faltantesParaEstaGuardia = guardiasRestantes + (guardias.indexOf(guardiaDelDia) < diasRestantes % guardias.length ? 1 : 0);
 
         // Mostramos la guardia del día y cuántas guardias faltan en la página
-        document.getElementById('mensaje').textContent = 'Guardia ' + guardiaDelDia + ': ' + faltantesParaEstaGuardia + ' restantes';
+        document.getElementById('mensaje').textContent = 'Guardia ' + guardiaDelDia //+ ': ' + faltantesParaEstaGuardia + ' restantes';
 
         
     </script>
@@ -478,15 +481,6 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <script>
     var palabras = [
 "HORACIO.HERNANDEZ HORACIO45        [CIRU]",
@@ -592,6 +586,7 @@
 "CARLOS.PALMA CARLOS11",
 "JESUSM.HERNANDEZ jesusm2022",
 "RICARDOP.PEREZ RICARDOP2024        (DR.RICARDO)",
+"RAFAEL.PEREZ Rafaelcp2023          (Dr.Carreta)",
 
 
 "FANNY.PEREYRA fannyp2022",
