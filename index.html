@@ -1,707 +1,234 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="icon" href="cheeems.ico">
-
-</head>
-<body>
-    <br>
-    <br>
-    <br>
-    <h1 style="font-size: xx-large; color: #063970;"><i>"Cheems Labs"</i></h1>
-    <textarea id="inputArea" rows="18" cols="50" placeholder="Pegar✏️"></textarea><br>
-    <!--<button onclick="extractData()">Extraer datos</button>
-    <button onclick="copyToClipboard()">Copiar al portapapeles</button>
-   <button onclick="clearTextarea()">Borrar</button>
-   <button onclick="pasteFromClipboard(event)">BOTON PARA PEGAR</button>-->
-   <button onclick="pasteExtractCopyClear()">Extraer⚙️</button>
-    <!--<button onclick="extraerCopiarMedicamentos()">--💊--</button>-->
-   <ul id="listaMedicamentos"></ul>
-    <p id="outputArea"></p>
-    <p id="copyMessage" style="color: #065470; font-size: 30px; font-weight: bold;"></p>
-    <script src="script.js"></script>
-
-
-    <!-- GUARDIOMETRO -->
-<body>
-    <h1 id="mensaje"></h1>
-
-    <script>
-        // Definimos las guardias en un array
-        var guardias = ['B', 'C', 'D', 'A'];
-
-        // Obtenemos la fecha actual
-        var fecha = new Date();
-
-        // Obtenemos el número de día desde el comienzo del año
-        var inicio = new Date(fecha.getFullYear(), 0, 1);
-        var diferencia = fecha - inicio;
-        var unDia = 1000 * 60 * 60 * 24;
-        var dia = Math.floor(diferencia / unDia);
-
-        // Calculamos la guardia del día
-        var guardiaDelDia = guardias[dia % guardias.length];
-
-        // Calculamos cuántas guardias faltan hasta el 30 de junio
-        var fin = new Date(fecha.getFullYear(), 5, 29);
-        var diasRestantes = Math.ceil((fin - fecha) / unDia);
-        var guardiasRestantes = Math.floor(diasRestantes / guardias.length);
-
-        // Calculamos cuántas guardias faltan para la guardia del día
-        var faltantesParaEstaGuardia = guardiasRestantes + (guardias.indexOf(guardiaDelDia) < diasRestantes % guardias.length ? 1 : 0);
-
-        // Mostramos la guardia del día y cuántas guardias faltan en la página
-        document.getElementById('mensaje').textContent = 'Guardia ' + guardiaDelDia //+ ': ' + faltantesParaEstaGuardia + ' restantes';
-
-        
-    </script>
-
-     <script>
-        function extraerMedicamentos() {
-        var texto = document.getElementById('inputArea').value;
-        var medicamentos = [
-          //1,3,4,6,7,12,15,16,17,25,29
-       'ACIDO ACETILSALICICO',
-'BUPRENORFINA',
-'CAPSAICINA',
-'CLONIXINATO DE LISINA',
-'DEXMEDETOMIDINA',
-'ETOFENAMATO',
-'IBUPROFENO',
-'KETOROLACO',
-'METAMIZOL',
-'MORFINA',
-'NALBUFINA',
-'OXICODONA',
-'PARACETAMOL',
-'TRAMADOL',
-'TRAMADOL/PARACETAMOL',
-'CELECOXIB',
-'DICLOFENACO',
-'ETORICOXIB',
-'INDOMETACINA',
-'MELOXICAM',
-'NAPROXENO',
-'ORFENADRINA',
-'PIROXICAM',
-//6 ENDOCRINO
-'DAPAGLIFLOZINA',
-'DEFLAZACORT',
-'DENOSUMAB',
-'DESMOPRESINA',
-'EFEDRINA',
-'FENOFIBRATO',
-'GLIBENCLAMIDA',
-'GLIMEPRIRIDA',
-'INSULINA ASPARTICA',
-'INSULINA DETEMIR',
-'INSULINA GLARGINA',
-'INSULINA HUMANA ACCIÓN RÁPIDA',
-'INSULINA HUMANA ACCIÓN INTERMEDIA',
-'INSULINA LISPRO',
-'LEVOTIROXINA',
-'METFORMINA',
-'METILPREDNISOLONA',
-'PRAVASTATINA',
-'PREDNISOLONA',
-'PREDNISONA',
-'ROSUVASTATINA',
-'SAXAGLIPTINA',
-'SOMATROPINA',
-'TESTOSTERONA',
-'TIAMAZOL',
-'VIDALGLIPTINA',
-//7 infecciosas parasitarias
-'ABACAVIR',
-'ACICLOVIR',
-'ALBENDAZOL'
-,'AMFOTERICINA B'
-,'AMIKACINA'
-,'AMOXICILINA-ACIDO CLAVULANICO'
-,'AMOXICILINA'
-,'AMPICILINA'
-,'AZITROMICINA'
-,'BENCILPENICILINA BENZATINICA'
-,'BENCILPENICILINA PROCAINICA'
-,'BENCILPENICILINA SODICA CRISTALINA'
-,'BENZATINA' 
-,'BICTEGRAVIR/EMTRICITABINA/TENOFOVIR'
-,'CASPOFUNGINA'
-,'CEFALEXINA'
-,'CEFEPIMA'
-,'CEFOTAXIMA'
-,'CEFTAZIDIMA' 
-,'CEFTRIAXONA'
-,'CEFUROXIMA'
-,'CIPROFLOXACINO'
-,'CLARITROMICINA'
-,'CLINDAMICINA'
-,'CLORANFENICOL'
-,'DARUNAVIR'
-,'DARUNAVIR/COBICISTAT'
-,'DICLOXACILINA'
-,'DOLUTEGRAVIR'
-,'DOLUTEGRAVIR/ABACAVIR/LAMIVUDINA'
-,'DORAVIRINA'
-,'DOXICICLINA'
-,'EFAVIRENZ'
-,'ELVITEGRAVIR/COBICISTA/EMTRICITABINA/TENOFOVIR'
-,'ALAFENAMIDA'
-,'EMTRICITABINA-TENOFOVIR'
-,'DISOPROXIL FUMARATO'
-,'ERITROMICINA'
-,'ERTAPENEM'
-,'ESTREPTOMICINA'
-,'ETRAVIRINA'
-,'FLUCONAZOL'
-,'FOSFOMICINA'
-,'GANCICLOVIR'
-,'GENTAMICINA'
-,'HIDROXICLOROQUINA'
-,'ISONIAZIDA'
-,'ISONIAZIDA Y RIFAMPICINA'
-,'ISONIAZIDA, RIFAMPICINA, PIRAZINAMIDA, ETAMBUTOL'
-,'ITRACONAZOL'
-,'IVERMECTINA'
-,'KETOCONAZOL'
-,'LAMIVUDINA'
-,'LEVOFLOXACINO'
-,'LINAGLIPTINA'
-,'LINEZOLID'
-,'LOPINAVIR-RITONAVIR'
-,'MEBENDAZOL'
-,'MEROPENEM'
-,'METRONIDAZOL'
-,'MOXIFLOXACINO'
-,'NEVIRAPINA'
-,'NISTATINA'
-,'NITROFURANTOINA'
-,'OSELTAMIVIR'
-,'PIPERACILINA-TAZOBACTAM'
-,'QUINFAMIDA'
-,'RALTEGRAVIR'
-,'RIFAMPICINA'
-,'RIFAXIMINA'
-,'RITONAVIR'
-,'SOFOSBUVIR-VELPATASVIR'
-,'SULFAMETOXAZOL-TRIMETROPINA'
-,'TALIDOMIDA'
-,'TEICOPLANINA'
-,'TENOFOVIR DISOPROXIL'
-,'TERBINAFINA'
-,'TRIMETOPRIMA / SULFAMETOXAZOL'
-,'VALGANCICLOVIR'
-,'VANCOMICINA'
-,'ZIDOVUDINA'
-,'ACIDO URSODEOXICOLICO'
-,'BUTILHIOSCINA-METAMIZOL'
-,'BUTILHIOSCINA'
-,'CISAPRIDA'
-,'DICICLOVERINA'
-,'FOSFATO Y CITRATO DE SODIO'
-,'INFLIXIMAB'
-,'LACTULOSA'
-,'LOPERAMIDA'
-,'MESALAZINA'
-,'METOCLOPRAMIDA'
-,'OCTREOTIDA'
-,'OMEPRAZOL'
-,'PANCREATINA'
-,'PINAVERIO'
-,'PIPERIDOLATO'
-,'PLANTAGO PSYLLIUM'
-,'POLIETILENGLICOL'
-,'COLESTIRAMINA'
-,'SENOSIDOS A-B'
-,'SOFUSBUVIR'
-,'SUCRALFATO'
-,'SULFASALAZINA'
-,'TERLIPRESINA'
-,'TRIMEBUTINA'
-//3,4 ANGIO Y CARDIOLOGIA
-,'PENTOXIFILINA'
-,'ADENOSINA'
-,'ALTEPLASA'
-,'AMIODARONA'
-,'AMLODIPINO'
-,'ATENOLOL'
-,'ATORVASTATINA'
-,'CARVEDIDOL'
-,'CLOPIDOGREL'
-,'CLORTALIDONA'
-,'DIGOXINA'
-,'DILTIAZEM'
-,'ISOSORBIDE'
-,'ISOSORBIDA'
-,'DOBUTAMINA'
-,'DOPAMINA'
-,'CAPTOPRIL'
-,'ENALAPRIL'
-,'EPINEFRINA'
-,'ESMOLOL'
-,'FELODIPINO'
-,'BISOPROLOL'
-,'HIDRAZALINA'
-,'LOSARTAN-HIDROCLOROTIAZIDA'
-,'LOSARTAN'
-,'METILDOPA'
-,'METOPROLOL'
-,'MILRINONA'
-,'NIFEDIPINO'
-,'NITROPRUSIATO DE SODIO'
-,'POTASIO'
-,'PRAZOSINA'
-,'PROPAFENONA'
-,'TELMISARTAN'
-,'TENECTEPLASA'
-,'GLICERILO'
-,'VALSARTAN'
-,'VERAPAMILO'
-//15 NEFROLOGIA Y UROLOGIA
-,'ACETAZOLAMIDA'
-,'ACIDO MICOFENOLICO'
-,'ALFA CETOANALOGOS DE AMINOACIDOS'
-,'BUMETANIDA'
-,'CICLOSPORINA'
-,'CINACALCET'
-,'DUTASTERIDA'
-,'ERITROPOYETINA'
-,'ESPIRONOLACTONA'
-,'FENAZOPIRIDINA'
-,'FUROSEMIDA'
-,'HIDROCLOROTIAZIDA'
-,'NORFLOXACINO'
-,'OXIBUTININA'
-,'SEVELAMERO'
-,'SILDENAFIL'
-,'SIROLIMUS'
-,'TACROLIMUS'
-,'TADALAFIL'
-,'TAMSULOSINA'
-,'TOLTERODINA'
-//16 NEUMOLOGIA
-,'ACETILCISTEINA'
-,'AMBROXOL'
-,'AMINOFILINA'
-,'BENZONATATO PERLA'
-,'BROMURO DE TIOTROPIO'
-,'BUDESONIDA'
-,'CITRATO DE CAFEÍNA'
-,'DIPROPIONATO DE BECLOMETASONA'
-,'FLUTICASONA - SALMETEROL'
-,'FLUTICASONA- VILANTEROL'
-,'IPRATROPIO – SALBUTAMOL'
-,'IPRATROPIO'
-,'MONTELUKAST'
-,'PIRFERIDONA'
-,'SALBUTAMOL'
-,'TEOFILINA-AMBROXOL'
-,'TEOFILINA'
-//17 NEUROLOGIA
-,'ATOMOXETINA'
-,'BIPERIDENO'
-,'CARBAMAZEPINA'
-,'CINARIZINA'
-,'CITICOLINA'
-,'CLONAZEPAM'
-,'DIAZEPAM'
-,'DONEPECILO'
-,'ELETRIPTÁN'
-,'ERGOTAMINA Y CAFEINA'
-,'FENITOINA'
-,'FENOBARBITAL'
-,'FLUNARIZINA'
-,'GABAPENTINA'
-,'GALANTAMINA'
-,'INTERFERON BETA'
-,'LACOSAMIDA'
-,'LAMOTRIGINA'
-,'LEVETIRACETAM'
-,'LEVODOPA Y CARBIDOPA'
-,'MEMANTINA'
-,'METILFENIDATO'
-,'MIRTAZAPINA'
-,'NICERGOLINA'
-,'NIMODIPINO'
-,'OXCARBAZEPINA'
-,'PERFENAZINA'
-,'PIRIDOSTIGMINA'
-,'PRAMIPEXOL DICLORHIDRATO'
-,'MONOHIDRATADO DE PRAMIPEXOL'
-,'PREGABALINA'
-,'RASAGILINA'
-,'RIVASTIGMINA'
-,'ROTIGOTINA'
-,'TOPIRAMATO'
-,'TOXINA BOTULINICA'
-,'VALPROATO DE MAGNESIO'
-,'VALPROATO SEMISODICO'
-,'VIGABATRINA'
-,'ZOLMITRIPTANO'
-//12 HEMATOLOGIA
-,'ACENOCUMAROL'
-,'ACIDO TRANEXAMICO'
-,'MENADIONA'
-,'DABIGATRAN'
-,'DEFERASIROX'
-,'DEXAMETASONA'
-,'ELTROMBOPAG' 
-,'ENOXAPARINA'
-,'FACTOR DE VON WILLEBRAND'
-,'FITOMENADIONA'
-,'FUMARATO FERROSO'
-,'HEPARINA'
-,'HIERRO DEXTRAN'
-,'INMUNOGLOBULINA HUMANA'
-,'METOCARBAMOL Y PARACETAMOL'
-,'RIVAROXABAN'
-,'ROMIPLOSTIM'
-,'SIMOCTOCOG ALFA'
-,'SULFATO FERROSO'
-//25 REUMATOLOGIA
-,'ADALIMUMAB'
-,'ALOPURINOL'
-,'AZATIOPRINA'
-,'BARICITINIB'
-,'COLCHICINA'
-,'CERTOLIZUMAB PEGOL'
-,'COLECALCIFEROL'
-,'ETANERCEPT'
-,'LEFLUNOMIDA'
-,'TIZANIDINA'
-,'TOCILIZUMAB'
-];
-
-          var lista = document.getElementById('listaMedicamentos');
-          lista.innerHTML = '';
-          for (var i = 0; i < medicamentos.length; i++) {
-            var index = texto.indexOf(medicamentos[i]);
-            if (index !== -1) {
-                var substring = texto.substring(index);
-                var match = substring.match(/\d+/);
-                var tomarIndex = substring.indexOf('Tomar/Aplicar');
-                if (tomarIndex !== -1) {
-                    var tomarSubstring = substring.substring(tomarIndex);
-                    var tomarMatch = tomarSubstring.match(/\d+/);
-                    if (match && tomarMatch) {
-                        var multiplicacion = match[0] * tomarMatch[0];
-                        var li = document.createElement('li');
-                        var unidad = substring.match(/MG|G|UI/);
-                        var tipo = substring.match(/INYECTABLE|TABLETAS|COMPRIMIDOS|GRAGEAS|CAPSULA/);
-                        var tipoTexto = '';
-                        if (tipo) {
-                            tipoTexto = (tipo[0] === 'INYECTABLE') ? ' IV' : ' VO';
-                        }
-                        var horas = tomarSubstring.match(/cada (\d+) HORAS/);
-                        var horasTexto = '';
-                        if (horas) {
-                            horasTexto = ' CADA ' + horas[1] + ' HORAS';
-                        }
-                        if (unidad) {
-                            li.textContent = medicamentos[i] + ' ' + multiplicacion + ' ' + unidad[0] + tipoTexto + horasTexto;
-                        } else {
-                            li.textContent = medicamentos[i] + ' ' + multiplicacion + tipoTexto + horasTexto;
-                        }
-                        // Verifica si el medicamento tiene la palabra "Alta" después de los detalles del medicamento
-                        var altaIndex = substring.indexOf('Fecha alta:');
-                        var nextMedIndex = (i < medicamentos.length - 1) ? substring.indexOf(medicamentos[i + 1]) : -1;
-                        if (altaIndex !== -1 && (nextMedIndex === -1 || altaIndex < nextMedIndex)) {
-                            li.textContent += '';
-                            lista.appendChild(li);
-                        }
-                    }
-                }
-            }
-        }
-    } 
-                //var altaIndex = substring.indexOf('Fecha alta:');
-                        //  var modificadoIndex = substring.indexOf('Fecha modificación');
-                        //  var nextMedIndex = (i < medicamentos.length - 1) ? substring.indexOf(medicamentos[i + 1]) : -1;
-                        //  if ((altaIndex !== -1 || modificadoIndex !== -1) && (nextMedIndex === -1 || Math.min(altaIndex, modificadoIndex) < nextMedIndex)) {
-                        //      li.textContent += ' ';
-                        //      lista.appendChild(li);
-                        //  }
-</script>
-</body>
-</html>
- 
-  </script>
-
-</body>
-<br>
-
-<footer>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<input type="text" id="buscador" onkeyup="buscar()" placeholder="🔍">
-<div id="resultado"></div> 
-<a href="https://docs.google.com/document/d/1osWkTVQUlQWJ8iUHgd27IbCi3Fxu_fJQmcz_hjewkqk/edit" target="Buzonn">Corregir o donar cuentas</a>
-<br>
-<iframe name= "Buzonn" style= "border: none" width="500" height="500"></iframe>
-</footer>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<script>
-    var palabras = [
-"HORACIO.HERNANDEZ HORACIO45        [CIRU]",
-"FRANCISCO.CARRADA CARRADA36        [CIRU]",
-"AGUILAR.MOTA 3105SAMiCR            [CIRU]",
-"BENITO.RAMON BENITORG1234          [CIRU]",
-"CARLOS.AVALOS AVALOS59             [UROLOGIA]",
-"CARLOS.MADRIGAL DRLEYVA62          [CIRU]",
-"DARLINGGL GONZALEZ4910",
-"DAVID.RIOS DARIRO86                [CIRU]",
-"IGNACIO.PAVON IGNACIOPR150         [CIRU]",
-"JESUS.MARTINEZ JESUSZJ58",
-"JOEL.CRUZG JOELCRUZ23              (R.IVAN) [CIRU]",
-"JORGE.MANZUR JORGERJ56             [COLOPROCTO]",
-"ROBERTO.MANZANO ROBERTO17          [COLOPROCTO]",
-"RODRIGO.REPETTO RODRIGO76          [CIRU]",
-"TILO.AGUILAR AGUILAR59             [CIRU]",
-"JUAN.ROJAS JUANSJ45                (DR. ROJAS LORANCA) [CARDIOTORAX]",
-"CLAUDIAS.TABOADA CLAUDIASTS25",
-"MIGUEL.ORTEGA MIGUEL470            [CIRU]",
-"ROMAN.LANDERO ROMANLG256           [CIRU]",
-//URGENCIAS
-"JLUISBG.GUTIERREZ Jluisbg2023      (Dr.Baltazar)",
-"MARCIONILADG MARCIONILADG210       [MI]",
-"MARTINBG MARTIN671                 (Dr.Burguet)",
-"JOSE.FRANCISCO JOSERA671           (Dr.Arroyo)",
-"DAVIS.ANDERSON DAVISGL850",
-"LUZ.LUCIANO BALCAZAR69",
-"JULIO.MENDOZA JULIOMH2023",
-"KRYSTELL.CASTRO Krystell2023",
-"ROCIO.NARVAEZ Dannamn03            [URGENCIAS]",
-"FREDDY_MARIN abcdef12              [URGENCIAS]",
-"MANUEL.PEREZ MANUELPL663           [URGENCIAS]",
-"ARMANDO.FRIAS ARMANDOFO715         [URGENCIAS]",
-"MARIA.REYES MARIA874               (Dra.Paz)",
-"MARCO.RUIZ MARCORV339",
-"MARIA.CERINOCEMI ISABEL12",
-"MIGUEL.GONZALEZ MIGUEL4510         (DR.Villegas) [URGENCIAS]",
-"NESTOR.PEREZ NESTORPA645",
-"ADRIAN.NAVARRETE ADRIANNC258",
-"AGUSTIN.PEREZ AGUSTINPG384",
-"ERNESTO.RIVERA ERNESTORR407",
-"ALFREDO.HERNANDEZ ALFREDOZA79",
-"ANTONIO.CERINO antonio2022",
-"FERNANDO.GARCIA GARCIA12",
-"EZEQUIEL.LUCIANO ezequiel2022",
-"HERNAN HERNAN0040",
-"JUAN.LOPEZ 2802                    (Dr.JJ) [URGENCIAS]",
-"JUSTINO.CADENA JUSTINOCO654",
-"LUIS.GOMEZ Alfredo89",
-"ANTONIO.PEREZ ANTONIOPJ297",
-"BEATRIZ.ADRANA ADRIANA1130         (Dra.Velasco)",
-"CARLOS.HERNANDEZ CARLOS469",
-"MANUEL.DIAZ MANUELDL765",
-"MANUEL.SANTIAGO Manuel2023",
-"JIM.CHABLE JIMCH972                (Dr.Jim)",
-"RODRIGO.DIAZ RODRIGO2024",
-"ANGEL.LOPEZ ANGELZA79",
-//MI
-"MARINA.BRETON MARINANM64",
-"JOSE.VALENZUELA Josemaria06 [MI]",
-"BURGOS.ALVAREZ BURGOS485           [MI]",
-"ROCIO.ROMO 161616 Dra. Romo        [MI]",
-"JESUS.CHABLED CHABLE99             (R.Chable) [MI]",
-"MAGDIEL.OROZCO MAGDIEL0409         [MI]",
-"DANIEL.SALVADOR DANIEL01           [MI]",
-"SERGIO.AMORES sergioss66           [MI]",
-"JAGOPE 690626                      (Dr.Pedrero)[CARDIO]",
-"BLANCA.BROCAG BLANCA0104           (DRA.BLANCA ESTELA BROCA) [CARDIO]",
-"MARCO.RUIZ MARCORV339              [NEFRO]",
-"TORRES.ESTEBAN TORRES2188          [NEFRO]",
-"PEDROZO.E PEDROZO68                (DR. OSMELL) [NEFRO]",
-"JAVIERE.TORRES   torres3105        [NEFRO]",
-"ROSULA.MONTEJO ROSULAMD738         [MI]",
-"SERGIO.CASTRO SERGIOLZ66           (DR.CASTRO LAZO) [NEUMO]",
-"EDGAREM.BASTO EDGAREM2024          [NEUMO]",
-//TRAUMA
-"IVES.PEDRO IVESMU2024              [TRAUMA]",
-"MANUEL.FERNANDEZ manuel610101      [TRAUMA]",
-"PAULO.LOPEZ LOMUPAULO              [TRAUMA]",
-"ABRAHAM.RAMIREZT ABRAHAM78          [TRAUMA]",
-"JORGE.MOO JORGEOJ53                (DR.MOO KIM) [TRAUMA]",
-"JORGE.SANCHEZ JORGEZJ57            [TRAUMA]",
-"JUAN.LOPEZ JUANZJ45                (DR.LOPEZ ROMERO CIRUGIA DE COLUMNA) [TRAUMA]",
-"RICARDEZ RAFAEL81                  [TRAUMA]",
-"JOSE.GOMEZ JOSE J46                (Espacio en la contraseña) [TRAUMA]",
-"RODOLFO.AGUIRRE ACAPULCO60 (DR.SUSANO) [TRAUMA]" ,
-"ULISES.BRAVO MIELOMENINGOCELE001   (DR.BRAVO) [NEUROCIRU]",
-"MAURICIO.MUÑOZ MAURICIOZM85        (DR.MUÑOZ) [NEUROCIRU]",
-//MEDICOS APOYO
-"UBALDO.DIAZ Ubaldocr2023",
-"JAVIER.FLORES JAVIERFR479",
-"SALVADORHH SALVADORHH12",
-"MERCEDES.PEREGRINO MERCEDES1998",
-"JONATHAN.DIAZ JONATHAN23",
-"ANA.BELEN 1234",
-"LUIS.MENDOZA LUIS.MENDOZA1989",
-"DANIELA.CONDE Danielaca2023",
-"KAREN.REYES TERESA68               (DRA.JEMIMA)",
-"MARIA.ALICIA MARIARR321            (Dra.Alicia)",
-"ANDRES.PALOMEQUE Andrespz2024",
-"ROSARIO.MENA ROSARIOMJ22",
-"CARLOS.PALMA CARLOS11",
-"JESUSM.HERNANDEZ jesusm2022",
-"RICARDOP.PEREZ RICARDOP2024        (DR.RICARDO)",
-"RAFAEL.PEREZ Rafaelcp2023          (Dr.Carreta)",
-
-
-"FANNY.PEREYRA fannyp2022",
-//PEDIAPLAYA
-"GCHAVEZ GCHAVEZ561                 (Dra.Chávez) [PEDIA]",
-"JUAN.HERNANDEZ juanhm626           (Dr.Marroquín) [PEDIA]",
-"JOSE.UITZIL UITZIL983              (Dr.Uitzil) [PEDIA]",
-"CANDELARIO.ZAVALA CANDELARIO1529   (Dr.Zavala) [PEDIA]",
-"MARCELO.SOTOMAYOR MARCELORM79      (Dr.Sotomayor) [CIRU PEDIA]",
-"MARIA.JOSE COYOC                   (Dra.Coyoc) [PEDIA]",
-"ROSA.MARTINEZ MARBAR               (Dra.Martínez) [PEDIA]",
-"DANIEL.AGUILAR DANIELAR670         (Dr.Daniel Aguilar) [PEDIA]",
-"FELIPE.PAIS FELIPEPD485            (Dr.Pais) [PEDIA]",
-"MARIBEL.MEZO MARIBELMM624          (Dra.Maribel) [PEDIA]",
-"FAUSTINO.MORALES faustino91        (Dr.Faustino) [PEDIA]",
-"FREDERIC.VELASCO LIZCHAN12         (Dr.Frederic) [PEDIA]",
-"JPABLO.MONTALVO jpablo2023         (Dr.Montalvo) [PEDIA]",
-"FLORENCIO.ALVAREZ FLORENCIO868     (Dr.Florencio) [PEDIA]",
-"MIGUEL.LASTRA MENADA50             (Dr.Lastra) [PEDIA]",
-"FVELASCOS FRED.0011                // CERTIFICADOS Dr.Frederic",
-"ARTURO.ARIAS ARTURO47              (Dr.Arias [CIRU PEDIA])",
-"ESMERALDA.GOMEZ ESMERALDA179       (Dra.Esmeralda) [PEDIA]",
-"CONSTANZAFP CONSTANZAFP            (Dra.Constanza)[PEDIA]",
-"ALEXCOOP Vipers00                  (Dr.Coop)",
-//GINECOLOGIA
-"EZEQUIAS.SOBERANOCM nery25eze35    (DR. SOBERANO) [GYO]",
-"JOSE.AQUINO JOSEOJ56               [GYO]",
-"JOSESP.SANCHEZ Josesp2023          (DR. PACHO) [GYO]",
-"ROBERTO.ROMAN ROBERTORA661         [GYO]",
-"ALEJANDRA.LANDERO Alejandra2023    [GYO]",
-"PAOLIS19 PAOLIS19                  (DRA. PAOLA) [GYO]",
-"AYMARA.CASTRO AYMARACF479",
-"PABLO.FROYLAN CULISIMO             [GYO]",
-"GERARDO.GOMEZ GERARDOGH174         [GYO]",
-"ANTONIO.GUZMAN ANTONIOGD611        [GYO]",
-"JOSE.SASTRE JOSEEJ046              [GYO]",
-"MARIA.RUBI QUINTANILLA             [GYO]",
-"SALOMON.SANTANA SANTANA60          [GYO]",
-"RICARDO.PERALTA RIPEQU85           [GYO]",                
-"ISRAEL.CIFUENTES ISRAELSI69        [GYO]",
-"DRESCAYOLA.19 enrique88            [GYO]",
-"JOSE.ANTONIO JOSEAD874",
-"RAULHS.SANCHEZ Raulhs2023          [GYO]",
-"MICHE.BRACA BRACAGIL               [GYO]",
-"NELSON.MORALES Nelson2023          (DR.ALAN) [GYO]",
-//OTROS
-"GILDA.GONZALEZ GILDAGS540",
-"AGUILAR.MIGUEL AGUIHE84            (Dr.MIGUEL ANGEL AGUILAR HERNANDEZ)",
-"ALBERTOCM ALBERTO169               (Dr.ALBERTO CONTRERAS MENDEZ)",
-"AMANDA.VARGAS AMANDAVJ982          (AMANDA VARGAS JIMENEZ)",
-"ANTONIO.GUZMAN ANTONIOGD611        (ANTONIO GUZMAN DOMINGUEZ)",
-"ARTURO.LOPEZ ARTUROZA71            (Dr.ARTURO LOPEZ SANTIAGO)",
-"FELIPE SOLIZF86                    (FELIPE DE JESUS AVILA SOLIZ)",
-"FERNANDO.ALVAREZ  ANESTESIA        (FERNANDO ARTURO ALVAREZ HERNANDEZ)",
-"GABRIELA.ARIAS GABRIELAAR715       (SANDRA GABRIELA ARIAS RICARDEZ)",
-"GABRIELA.GUZMAN COMETIN07          (GABRIELA GUZMAN MOLINA)",
-"GONZA.VANIAC DRAVGC88              (VANIA GONZALEZ CORREA)",
-"GONZALO.MENDOZA GONZALOAG77        (GONZALO MENDOZA SANCHEZ)",
-"ISABEL.RAMON ISABEL27              (ISABEL CRISTINA RAMON PEREZ)",
-"IVAN.CERINO IVAN727                (DR.CERINO) [TYO]",
-"IVONNE.RINCON IVONNE847            (IVONNE DEL CARMEN RINCON ARANO)",
-"JOSE.AQUINO JOSEOJ56               (JOSE MANUEL AQUINO HERNANDEZ)",
-"JOSE.CADENA JOSECADE05             (JOSE ANTONIO CADENA GARCIA)",
-"JOSE.DAVID MUÑOZ                   (JOSE DAVID MUÑOZ ROMERO)",
-"JOSEJH.HERNANDEZ josejh2022        (JOSE JESUS DE DIOS HERNANDEZ)",
-"JUAN.ALFARO ALFARO5656             (JUAN LUIS ALFARO RUIZ)",
-"JULIO.CESAR JULIOCVE440            (JULIO CESAR VAZQUEZ ESPINOSA)",
-"LUIS.ALMEIDA ARTURO19              (LUIS ARTURO ALMEIDA MAYORGA)",
-"MARCOA.SERRANO MARCOASR999         (MARCO ANTONIO SERRANO RIVERA)",
-"MARTHA.AGUILAR MARTHAAM916         (MARTHA ELENA AGUILAR MOCTEZUMA)",
-"MIGUEL.ARMANDO MIGUELFM619         (MIGUEL ARMANDO FALCONI MARTINEZ)",
-"MIGUEL.DOMINGUEZ MIGUELDH551       (MIGUEL ANGEL DOMINGUEZ HERRERA)",
-"OCTAVIANO.VELAZCO OCTAVIANOVR415   (OCTAVIANO VELAZCO RODRIGUEZ)",
-"OMAR.TEJERO OMARTJ298              (OMAR TEJERO JIMENEZ)",
-"RAFAEL.SANCHEZ TRABAJO12           (RAFAEL SANCHEZ MAY)",
-"RONALD.ARLEY RONALDCA526           (RONALD ARLEY CEFERINO ARIAS)",
-"ROSA.MARTINEZ MARBAR               (ROSA MARTHA MARTINEZ DE ESCOBAR HERRERA)",
-"RUBEN.VILLAREAL RUBENVG6564        (RUBEN VILLAREAL GOVEA)",
-"RUTH.GUATEMALA RUTHGN144           //(RUTH GUATEMALA NIÑO)"
-
-
-];
-
-    function buscar() {
-        var input = document.getElementById('buscador');
-        var filtro = input.value.toLowerCase();
-        var resultado = document.getElementById('resultado');
-        resultado.innerHTML = '';
-
-        if (filtro.trim() !== '') {
-            for(i = 0; i < palabras.length; i++) {
-                if (palabras[i].toLowerCase().includes(filtro)) {
-                    var palabrasSeparadas = palabras[i].split(' ');
-                    var p = document.createElement('p');
-                    for (var j = 0; j < palabrasSeparadas.length; j++) {
-                        var span = document.createElement('span');
-                        span.textContent = palabrasSeparadas[j] + ' ';
-                        span.onclick = function() {
-                            navigator.clipboard.writeText(this.textContent.trim());
-                        };
-                        p.appendChild(span);
-                    }
-                    resultado.appendChild(p);
-                }
-            }
-        }
-    }
-</script>
-<style>
-    #resultado {
-      margin-top: 15px;
-  }
-  span {
-      cursor: pointer;
-  }
-  span:hover::after {
-      content: ' (COPIAR)';
-      color: rgba(115, 0, 255, 0.589);
-  }
-  </style>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
-<b><span style="font-size: xx-small; color: #f4f4f4;"><i> 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen</title>
+  </head>
+  <body>
+    <span>Pedia </span> <!-- tabla de pedia -->
+    <table border="1">
+      <tr>
+        <th>NOMBRE</th>
+        <th>ECE</th>
+        <th>α</th>
+        <th>PHEDS</th>
+        <th>ß</th>
+      </tr>
+      <tr>
+        <td>Dra.Quetzali</td>
+        <td>11417528</td>
+        <td>11417528RQ</td>
+      </tr>
+      <tr>
+        <td>Dra.Paola</td>
+        <td>991462244</td>
+        <td>paola</td>
+        <td>991462244</td>
+        <td>991462244DP</td>
+      </tr>
+    </table>
+    <span>46</span>
+    <table border="1">
+      <tr>
+        <th>NOMBRE</th>
+        <th>ECE</th>
+        <th>α</th>
+      </tr>
+      <tr>
+        <td>Dra.Eli Rosas</td>
+        <td>991446417</td>
+        <td>E991446417</td>
+        </tr>
+        <tr>
+        <td>Dr.Polo</td>
+        <td>11415142</td>
+        <td>114151</td>
+        </tr>
+        <tr>
+        <td>Dra.Dana</td>
+        <td>991462254</td>
+        <td>99146225</td>
+        </tr>
+        <tr>
+        <td>Dra.Raquel</td>
+        <td>991440437</td>
+        <td>99144043</td>
+        </tr>
+        <tr>
+        <td>Dra.Nicte</td>
+        <td>98191379</td>
+        <td>98191379</td>
+        </tr>
+        <tr>
+        <td>Dr.Gabriel</td>
+        <td>991438958</td>
+        <td>9914389</td>
+        </tr>
+        <tr>
+        <td>Dra.Maggie</td>
+        <td>991435540</td>
+        <td>29111988</td>
+        </tr>
+        <tr>
+        <td>Dra.Mine</td>
+        <td>991415921</td>
+        <td>133831</td>
+        </tr>
+        <tr>
+        <td>Dra.Blanca</td>
+        <td>99223941</td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>Dra.Cassandra</td>
+        <td>991462108</td>
+        <td>99146210</td>
+        </tr>
+        <tr>
+        <td>Dr.Pedro</td>
+        <td>991431925</td>
+        <td>99143192</td>
+        </tr>
+     
+    </table> <!-- tabla de la 46 -->
+    <span>CMNO</span>
+    <table border="1"> 
+    <tr>
+        <th>NOMBRE</th>
+        <th>ECE</th>
+        <th>α</th>
+    </tr>
+    <tr>
+    <td>Turno Matutino</td>
+      </tr>
+      <tr>
+        <td>RV-A (Dr Castro)</td>
+        <td>11864915</td>
+        <td>1186491</td>
+      </tr>
+      <tr>
+        <td>RV-B (Dr Solorzano)</td>
+        <td>99312766</td>
+        <td>993127</td>
+      </tr>
+      <tr>
+        <td>RV-F (Dr Jauregui)</td>
+        <td>99148486</td>
+        <td>99148486</td>
+      </tr>
+      <tr>
+        <td>RV-H (Dr Raul Aguilar)</td>
+        <td>991435699</td>
+        <td>794613</td>
+      </tr>
+      <tr>
+        <td>Glaucoma B (Dr Puga)</td>
+        <td>991451790</td>
+        <td>11021989</td>
+      </tr>
+      <tr>
+        <td>Noya C (Dra De La Rosa)</td>
+        <td>991412896</td>
+        <td>991412</td>
+      </tr>
+      <tr>
+        <td>Noya A (Dra Myryam Aguilar)</td>
+        <td>98376013</td>
+        <td>9837601</td>
+      </tr>
+      <tr>
+        <td>Trasplantes TM (Dra Torres)</td>
+        <td>991425939</td>
+        <td>895623</td>
+      </tr>
     
-
-</i></span></b>
+      <tr>
+      <td>Turno Vespertino</td>
+    </tr>
+    <tr>
+      <td>Glaucoma A (Dr Zepeda)</td>
+      <td>99129346</td>
+      <td>99129346</td>
+    </tr>
+    <tr>
+      <td>SA-A (Dra Sanchez)</td>
+      <td>99145749</td>
+      <td>99145744</td>
+    </tr>
+    <tr>
+      <td>SA-B (Dr James Melendez)</td>
+      <td>991433387</td>
+      <td>99143</td>
+    </tr>
+    <tr>
+      <td>SA-C // Trasplantes (Dra Alvarado)</td>
+      <td>991412526</td>
+      <td>9141267</td>
+    </tr>
+    <tr>
+      <td>SA-D (Dr Menchaca)</td>
+      <td>97372691</td>
+      <td>ranktop</td>
+    </tr>
+    <tr>
+      <td>RV-C (Dr Jimenez)</td>
+      <td>98360853</td>
+      <td>98360853</td>
+    </tr>
+    <tr>
+      <td>RV-D (Dr Garcia)</td>
+      <td>99362939</td>
+      <td>895623</td>
+    </tr>
+    <tr>
+      <td>RV-E (Dra Thomassiny)</td>
+      <td>991459579</td>
+      <td>59579</td>
+    </tr>
+    <tr>
+      <td>Jornada Acumulada</td>
+    </tr>
+    <tr>
+      <td>Glaucoma (Dra Isis)</td>
+      <td>991433476</td>
+      <td>99143344</td>
+    </tr>
+    <tr>
+      <td>Uvea (Dr Valencia)</td>
+      <td>991463228</td>
+      <td>920321</td>
+    </tr>
+    <tr>
+      <td>Urgencias (Dra Ponce)</td>
+      <td>991459639</td>
+      <td>99145963</td>
+    </tr>
+    
+    <tr>
+      <td>Turno Nocturno</td>
+    </tr>
+    <tr>
+      <td>Dra Miros</td>
+      <td>991420926</td>
+      <td>99142092</td>
+    </tr>
+    <tr>
+      <td>Dr Briones</td>
+      <td>9831028</td>
+      <td>9831302</td>
+    </tr>
+    
+    <tr>
+      <td>08</td>
+    </tr>
+    <tr>
+      <td>Dra Esme</td>
+      <td>991456613</td>
+      <td>99145661</td>
+    </tr>
+      </table> <!-- tabla de CMNO-->
+    <script src="./script.js"></script>
+  </body>
 </html>
